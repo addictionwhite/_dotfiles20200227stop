@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/Users/shimaatsushi/Desktop/vimStudy'
+let g:netrw_dirhist_2='/Users/shimaatsushi/Desktop/studyDirectory'
+let g:netrw_dirhist_3='/Users/shimaatsushi/Desktop/gitStudy'
+let g:netrw_dirhist_4='/Users/shimaatsushi/Desktop/addictionwhite.github.io'
