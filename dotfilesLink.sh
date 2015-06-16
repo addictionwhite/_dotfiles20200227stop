@@ -1,4 +1,6 @@
 #!/bin/sh
+mkdir -p ~/.vim/bundle
+git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 if [[ ! -e ~/.vim ]]; then
   ln -sf ~/dotfiles/.vim ~/.vim
 fi
