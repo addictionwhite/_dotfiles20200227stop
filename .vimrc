@@ -49,7 +49,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc'
 
 
-nmap s <Plug>(easymotion-s2)
+nmap ; <Plug>(easymotion-s2)
 
 let g:user_emmet_leader_key='<C-e>'
 

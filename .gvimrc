@@ -2,10 +2,12 @@
 set shortmess+=I
 set cursorline
 "行番号を表示
-set number
+"set number
+
+set relativenumber " 相対行表示
 
 set showmatch      " 対応する括弧を強調表示
-set cursorline     " カーソル行の背景色を変える
+"set cursorline     " カーソル行の背景色を変える
 set cursorcolumn   " カーソル位置のカラムの背景色を変える
 
 " ファイル処理関連の設定
@@ -18,12 +20,29 @@ set noswapfile " ファイル編集中にスワップファイルを作らない
 
 set iminsert=2
 
-" カーソル行を強調表示しない
-set nocursorline
+
+set nocursorline " カーソル行を強調表示しない
 " 挿入モードの時のみ、カーソル行をハイライトする
 autocmd InsertEnter,InsertLeave * set cursorline!
 
 
+ """ビープとビジュアルベルを無効化
+ set t_vb=
+ set novisualbell
+
+ " タイプ途中のコマンドを画面最下行に表示
+ set showcmd
+
+ """ 不可視文字の可視化
+ set list
+
+ " インデントにハードタブを使う場合の設定。
+ " タブ文字を4文字分の幅で表示する。
+ set shiftwidth=4
+ set tabstop=4
+
+" 長い行を折り返さない
+set nowrap
 
 
 colorscheme dw_cyan
