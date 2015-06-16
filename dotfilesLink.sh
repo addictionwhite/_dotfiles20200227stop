@@ -1,5 +1,7 @@
 #!/bin/sh
-ln -sf ~/dotfiles/.vim ~/.vim
+if [[ ! -e ~/.vim ]]; then
+  ln -sf ~/dotfiles/.vim ~/.vim
+fi
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/colors ~/.vim
 ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
