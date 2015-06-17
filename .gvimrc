@@ -20,9 +20,9 @@ set noswapfile " ファイル編集中にスワップファイルを作らない
 
 set iminsert=2
 
+
 " タイプ途中のコマンドを画面最下行に表示
 set showcmd
-
 
 set nocursorline " カーソル行を強調表示しない
 " 挿入モードの時のみ、カーソル行をハイライトする
@@ -48,8 +48,24 @@ autocmd InsertEnter,InsertLeave * set cursorline!
 set nowrap
 
 
+" カレント行ハイライトON
+set cursorline
+
+
+" インサートモードに入った時にカーソル行(列)の色を変更する
+augroup vimrc_change_cursorline_color
+  autocmd!
+  " インサートモードに入った時にカーソル行の色をブルーグリーンにする
+  autocmd InsertEnter * highlight CursorLine ctermbg=24 guibg=#005f87 | highlight CursorColumn ctermbg=24 guibg=#005f87
+  " インサートモードを抜けた時にカーソル行の色を黒に近いダークグレーにする
+  autocmd InsertLeave * highlight CursorLine ctermbg=236 guibg=#303030 | highlight CursorColumn ctermbg=236 guibg=#303030
+augroup END
+
+
+
 colorscheme dw_cyan
 syntax on
+
 
 set guifont=Ricty:h13
 
@@ -59,8 +75,6 @@ if has('gui_macvim')
     set guioptions-=T " ウィンドウ上部のタブ部分を無効に
     set imdisable " IMEを無効に
 endif
-
-
 
 
 " vim-gitgutter
