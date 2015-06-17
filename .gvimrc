@@ -20,6 +20,9 @@ set noswapfile " ファイル編集中にスワップファイルを作らない
 
 set iminsert=2
 
+" タイプ途中のコマンドを画面最下行に表示
+set showcmd
+
 
 set nocursorline " カーソル行を強調表示しない
 " 挿入モードの時のみ、カーソル行をハイライトする

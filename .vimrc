@@ -49,7 +49,7 @@ NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc'
 
 
-nmap ; <Plug>(easymotion-s2)
+nmap s <Plug>(easymotion-s2)
 
 let g:user_emmet_leader_key='<C-e>'
 
@@ -60,5 +60,37 @@ let twitvim_force_ssl = 1
 let twitvim_count = 40
 
 
+" カーソルが何行目の何列目に置かれているかを表示する
+set ruler
+" コマンドラインに使われる画面上の行数
+set cmdheight=2
+
+" 暗い背景色に合わせた配色にする
+set background=white
+
+" 不可視文字を表示する
+set list
+" タブと行の続きを可視化する
+set listchars=tab:>\ ,extends:<
+" 行番号を表示する
+set number
+
+"「挿入モード→ノーマルモードでIMEを切るための設定」
+NeoBundle 'fuenor/im_control.vim'
+
+"----------------------------------------------------
+" 挿入モードでのカーソル移動
+"----------------------------------------------------
+""" 下に移動
+inoremap <C-j> <Down>
+""" 上に移動
+inoremap <C-k> <Up>
+""" 左に移動
+inoremap <C-h> <Left>
+""" 右に移動
+inoremap <C-l> <Right>
+ """全角スペースを視覚化
+highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
+au BufNewFile,BufRead * match ZenkakuSpace /　/
 
 
