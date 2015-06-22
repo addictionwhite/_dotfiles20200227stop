@@ -46,8 +46,38 @@ NeoBundle 'open-browser.vim'
 NeoBundle 'balloon-stat/dirs.vim'
 
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
+NeoBundle 'Shougo/vimshell.vim'
 
+
+
+" 補完プラグイン
+NeoBundle 'Shougo/neocomplete'
+" スニペット補完プラグイン
+NeoBundle 'Shougo/neosnippet'
+" 各種スニペット
+NeoBundle 'Shougo/neosnippet-snippets'
+
+
+
+" Plugin key-mappings.  " <C-k>でsnippetの展開
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+
+" 自分用 snippet ファイルの場所
+let s:my_snippet = '~/snippet/'
+let g:neosnippet#snippets_directory = s:my_snippet
+
+
+NeoBundle 'altercation/vim-colors-solarized'
 
 nmap s <Plug>(easymotion-s2)
 
@@ -75,21 +105,29 @@ set listchars=tab:>\ ,extends:<
 " 行番号を表示する
 set number
 
-"「挿入モード→ノーマルモードでIMEを切るための設定」
-NeoBundle 'fuenor/im_control.vim'
+   "「挿入モード→ノーマルモードでIMEを切るための設定」
+   NeoBundle 'fuenor/im_control.vim'
 
-"----------------------------------------------------
-" 挿入モードでのカーソル移動
-"----------------------------------------------------
-""" 下に移動
-inoremap <C-j> <Down>
-""" 上に移動
-inoremap <C-k> <Up>
-""" 左に移動
-inoremap <C-h> <Left>
-""" 右に移動
-inoremap <C-l> <Right>
- """全角スペースを視覚化
+ "----------------------------------------------------
+ " 挿入モードでのカーソル移動
+ "----------------------------------------------------
+ """ 下に移動
+ " inoremap <C-j> <Down>
+ """ 上に移動
+ " inoremap <C-k> <Up>
+ """ 左に移動
+ " inoremap <C-h> <Left>
+ """ 右に移動
+ " inoremap <C-l> <Right>
+
+
+" for snippets
+g:neocomplcache_snippets_dir='~/.vim/snippets'
+imap <C-k> <Plug>(neocomplcache_snippets_expand)
+smap <C-k> <Plug>(neocomplcache_snippets_expand)
+
+
+"""全角スペースを視覚化
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
 

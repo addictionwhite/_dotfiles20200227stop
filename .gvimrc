@@ -63,7 +63,7 @@ augroup END
 
 
 
-colorscheme dw_cyan
+colorscheme monokai
 syntax on
 
 
