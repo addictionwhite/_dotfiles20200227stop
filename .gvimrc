@@ -63,7 +63,7 @@ augroup END
 
 
 
-colorscheme monokai
+colorscheme molokai
 syntax on
 
 

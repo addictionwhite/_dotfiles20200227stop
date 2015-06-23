@@ -56,7 +56,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 NeoBundle 'Shougo/vimshell.vim'
-
+NeoBundle 'tpope/vim-surround'
 
 
 " 補完プラグイン
