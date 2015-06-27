@@ -58,26 +58,35 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'tpope/vim-surround'
 
+NeoBundle 'jonathanfilip/vim-lucius'
+NeoBundle 'altercation/vim-colors-solarized'
 
-" 補完プラグイン
-NeoBundle 'Shougo/neocomplete'
-" スニペット補完プラグイン
+NeoBundle 'Shougo/neosnippet.vim'
+
+
+" ユーザー定義スニペット保存ディレクトリ
+let g:neocomplcache_snippets_dir = $HOME.'/snippet'
+" bundleで管理するディレクトリを指定
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
-" 各種スニペット
 NeoBundle 'Shougo/neosnippet-snippets'
 
+call neobundle#end()
+
+filetype plugin indent on
+
+let g:neosnippet#snippets_directory='~/snippets/'
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 1
+
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 
-" Plugin key-mappings.  " <C-k>でsnippetの展開
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-" 自分用 snippet ファイルの場所
-let s:my_snippet = '~/snippet/'
-let g:neosnippet#snippets_directory = s:my_snippet
-
-
-NeoBundle 'altercation/vim-colors-solarized'
 
 nmap s <Plug>(easymotion-s2)
 
@@ -119,12 +128,6 @@ set number
  " inoremap <C-h> <Left>
  """ 右に移動
  " inoremap <C-l> <Right>
-
-
-" for snippets
-g:neocomplcache_snippets_dir='~/.vim/snippets'
-imap <C-k> <Plug>(neocomplcache_snippets_expand)
-smap <C-k> <Plug>(neocomplcache_snippets_expand)
 
 
 """全角スペースを視覚化

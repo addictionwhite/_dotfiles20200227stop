@@ -13,6 +13,7 @@ ln -sf ~/dotfiles/colors ~/.vim
 ln -sf ~/dotfiles/.gvimrc ~/.gvimrc
 ln -sf ~/dotfiles/.oh-my-zsh ~/.oh-my-zsh
 ln -sf ~/dotfiles/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/.snippets ~/.snippets
 
 curl -L -o ./vcscommand-1.99.47.zip http://www.vim.org/scripts/download_script.php?src_id=19809
 unzip ./vcscommand-1.99.47.zip -d ~/.vim
