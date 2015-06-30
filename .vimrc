@@ -63,6 +63,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'Shougo/neosnippet.vim'
 
+NeoBundle 'yonchu/accelerated-smooth-scroll'
 
 " ユーザー定義スニペット保存ディレクトリ
 let g:neocomplcache_snippets_dir = $HOME.'/snippet'
@@ -112,6 +113,32 @@ call submode#map('bufmove', 'n', '', '<', '<C-w><')
 call submode#map('bufmove', 'n', '', '+', '<C-w>+')
 call submode#map('bufmove', 'n', '', '-', '<C-w>-')
 call neobundle#end()
+
+
+" insertモードから抜ける
+inoremap <silent> jj <ESC>
+inoremap <silent> <C-j> j
+inoremap <silent> kk <ESC>
+inoremap <silent> <C-k> k
+
+" 行頭・行末移動方向をキーの相対位置にあわせる
+nnoremap 0 $ 
+nnoremap 1 0 
+
+" 挿入モードでのカーソル移動
+inoremap <D-j> <Down>
+inoremap <D-k> <Up>
+inoremap <D-h> <Left>
+inoremap <D-l> <Right>
+
+" 引用符, 括弧の設定
+inoremap { {}<Left>
+inoremap [ []<Left>
+inoremap ( ()<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap <> <><Left>
+
 
 filetype plugin indent on
 
