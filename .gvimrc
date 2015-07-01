@@ -41,8 +41,10 @@ autocmd InsertEnter,InsertLeave * set cursorline!
 
  " インデントにハードタブを使う場合の設定。
  " タブ文字を4文字分の幅で表示する。
- set shiftwidth=4
- set tabstop=4
+set tabstop=4
+set autoindent
+set expandtab
+set shiftwidth=4
 
 " 長い行を折り返さない
 set nowrap
@@ -63,7 +65,7 @@ augroup END
 
 
 
-colorscheme molokai
+colorscheme inkpot
 syntax on
 
 

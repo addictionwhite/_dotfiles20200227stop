@@ -45,6 +45,9 @@ NeoBundle 'open-browser.vim'
 
 NeoBundle 'balloon-stat/dirs.vim'
 
+NeoBundle 'scrooloose/nerdtree', 'development'
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
@@ -62,9 +65,6 @@ NeoBundle 'jonathanfilip/vim-lucius'
 NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'Shougo/neosnippet.vim'
-
-NeoBundle 'yonchu/accelerated-smooth-scroll'
-
 " ユーザー定義スニペット保存ディレクトリ
 let g:neocomplcache_snippets_dir = $HOME.'/snippet'
 NeoBundle 'Shougo/neocomplcache'
