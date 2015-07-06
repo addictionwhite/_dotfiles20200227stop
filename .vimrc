@@ -42,10 +42,18 @@ NeoBundle 'airblade/vim-gitgutter'
 
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'open-browser.vim'
+NeoBundle 'LeafCage/yankround.vim'
+"/yankround.vim'用キーマップ
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
 
 NeoBundle 'balloon-stat/dirs.vim'
 
-NeoBundle 'seventhsense/nerdtree', 'development'
+NeoBundle 'scrooloose/nerdtree', 'development'
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 NeoBundle 'Shougo/unite.vim'
@@ -66,7 +74,7 @@ NeoBundle 'altercation/vim-colors-solarized'
 
 NeoBundle 'Shougo/neosnippet.vim'
 " ユーザー定義スニペット保存ディレクトリ
-let g:neocomplcache_snippets_dir = $HOME.'/snippet'
+let g:neocomplcache_snippets_dir = $HOME.'/snippets'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
@@ -91,7 +99,7 @@ nnoremap sp gT
 nnoremap sr <C-w>r
 nnoremap s= <C-w>=
 nnoremap sw <C-w>w
-nnoremap so <C-w>_<C-w> |
+nnoremap so <C-w>_<C-w>|
 nnoremap sO <C-w>=
 nnoremap sN :<C-u>bn<CR>
 nnoremap sP :<C-u>bp<CR>
@@ -108,7 +116,6 @@ nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
 
-
 call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
 call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
 call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
@@ -124,7 +131,6 @@ call neobundle#end()
 inoremap <silent> jj <ESC>
 inoremap <silent> <C-j> j
 inoremap <silent> kk <ESC>
-inoremap <silent> <C-k> k
 
 " 行頭・行末移動方向をキーの相対位置にあわせる
 nnoremap 0 $ 
