@@ -129,12 +129,7 @@ call neobundle#end()
 
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
-inoremap <silent> <C-j> j
-inoremap <silent> kk <ESC>
 
-" 行頭・行末移動方向をキーの相対位置にあわせる
-nnoremap 0 $ 
-nnoremap 1 0 
 
 " 挿入モードでのカーソル移動
 inoremap <D-j> <Down>
@@ -164,7 +159,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 
 " nmap s <Plug>(easymotion-s2)
-nmap ; <Plug>(easymotion-s2)
+nmap <C-j> <Plug>(easymotion-s2)
 
 let g:user_emmet_leader_key='<C-e>'
 
@@ -209,5 +204,39 @@ set number
 """全角スペースを視覚化
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
+
+
+
+""" Unite.vim
+" 起動時にインサートモードで開始
+let g:unite_enable_start_insert = 1
+" インサート／ノーマルどちらからでも呼び出せるようにキーマップ
+nnoremap <silent> <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+inoremap <silent> <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> <C-b> :<C-u>Unite buffer file_mru<CR>
+inoremap <silent> <C-b> <ESC>:<C-u>Unite buffer file_mru<CR>
+
+" grep
+nnoremap <silent> ,ug :<C-u>Unite grep<CR>
+
+" バッファ一覧
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" 全部乗せ
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" unite.vim上でのキーマッピング
+autocmd FileType unite call s:unite_my_settings()
+function! s:unite_my_settings()
+  " 単語単位からパス単位で削除するように変更
+  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
+  " ESCキーを2回押すと終了する
+  nmap <silent><buffer> <ESC><ESC> q
+  imap <silent><buffer> <ESC><ESC> <ESC>q
+endfunction
 
 
