@@ -53,10 +53,7 @@ nmap <C-n> <Plug>(yankround-next)
 
 NeoBundle 'balloon-stat/dirs.vim'
 
-NeoBundle 'scrooloose/nerdtree', 'development'
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
 \     'windows' : 'tools\\update-dll-mingw',
@@ -130,7 +127,6 @@ call neobundle#end()
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
 
-
 " 挿入モードでのカーソル移動
 inoremap <D-j> <Down>
 inoremap <D-k> <Up>
@@ -156,18 +152,11 @@ imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
-
-
-" nmap s <Plug>(easymotion-s2)
-nmap <C-j> <Plug>(easymotion-s2)
+" easyMotionキー
+ nmap s <Plug>(easymotion-s2)
+" emmetki-
 
 let g:user_emmet_leader_key='<C-e>'
-
-
-" twitter
-let twitvim_browser_cmd = 'open' " for Mac
-let twitvim_force_ssl = 1 
-let twitvim_count = 40
 
 
 " カーソルが何行目の何列目に置かれているかを表示する
@@ -182,61 +171,7 @@ set background=white
 set list
 " タブと行の続きを可視化する
 set listchars=tab:>\ ,extends:<
-" 行番号を表示する
-set number
 
-   "「挿入モード→ノーマルモードでIMEを切るための設定」
-   NeoBundle 'fuenor/im_control.vim'
-
- "----------------------------------------------------
- " 挿入モードでのカーソル移動
- "----------------------------------------------------
- """ 下に移動
- " inoremap <C-j> <Down>
- """ 上に移動
- " inoremap <C-k> <Up>
- """ 左に移動
- " inoremap <C-h> <Left>
- """ 右に移動
- " inoremap <C-l> <Right>
-
-
-"""全角スペースを視覚化
+" 全角スペースを視覚化
 highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
 au BufNewFile,BufRead * match ZenkakuSpace /　/
-
-
-
-""" Unite.vim
-" 起動時にインサートモードで開始
-let g:unite_enable_start_insert = 1
-" インサート／ノーマルどちらからでも呼び出せるようにキーマップ
-nnoremap <silent> <C-f> :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-inoremap <silent> <C-f> <ESC>:<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> <C-b> :<C-u>Unite buffer file_mru<CR>
-inoremap <silent> <C-b> <ESC>:<C-u>Unite buffer file_mru<CR>
-
-" grep
-nnoremap <silent> ,ug :<C-u>Unite grep<CR>
-
-" バッファ一覧
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" ファイル一覧
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" レジスタ一覧
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" 最近使用したファイル一覧
-nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
-" 全部乗せ
-nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
-" unite.vim上でのキーマッピング
-autocmd FileType unite call s:unite_my_settings()
-function! s:unite_my_settings()
-  " 単語単位からパス単位で削除するように変更
-  imap <buffer> <C-w> <Plug>(unite_delete_backward_path)
-  " ESCキーを2回押すと終了する
-  nmap <silent><buffer> <ESC><ESC> q
-  imap <silent><buffer> <ESC><ESC> <ESC>q
-endfunction
-
-

@@ -18,5 +18,3 @@ ln -sf ~/dotfiles/.snippets ~/.snippets
 curl -L -o ./vcscommand-1.99.47.zip http://www.vim.org/scripts/download_script.php?src_id=19809
 unzip ./vcscommand-1.99.47.zip -d ~/.vim
 
-git clone https://github.com/tomasr/molokai
-mv molokai/colors/molokai.vim ~/.vim/colors/

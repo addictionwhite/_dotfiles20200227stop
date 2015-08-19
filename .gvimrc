@@ -1,25 +1,19 @@
 
 set shortmess+=I
-set cursorline
 "行番号を表示
 "set number
 
 set relativenumber " 相対行表示
-
 set showmatch      " 対応する括弧を強調表示
-"set cursorline     " カーソル行の背景色を変える
+set cursorline     " カーソル行の背景色を変える
 set cursorcolumn   " カーソル位置のカラムの背景色を変える
-
-" ファイル処理関連の設定
 
 set confirm    " 保存されていないファイルがあるときは終了前に保存確認
 set hidden     " 保存されていないファイルがあるときでも別のファイルを開くことが出来る
 set autoread   "外部でファイルに変更がされた場合は読みなおす
 set nobackup   " ファイル保存時にバックアップファイルを作らない
 set noswapfile " ファイル編集中にスワップファイルを作らない
-
 set iminsert=2
-
 
 " タイプ途中のコマンドを画面最下行に表示
 set showcmd
@@ -28,15 +22,14 @@ set nocursorline " カーソル行を強調表示しない
 " 挿入モードの時のみ、カーソル行をハイライトする
 autocmd InsertEnter,InsertLeave * set cursorline!
 
-
- """ビープとビジュアルベルを無効化
+ " ビープとビジュアルベルを無効化
  set t_vb=
  set novisualbell
 
  " タイプ途中のコマンドを画面最下行に表示
  set showcmd
 
- """ 不可視文字の可視化
+ " 不可視文字の可視化
  set list
 
  " インデントにハードタブを使う場合の設定。
@@ -49,11 +42,6 @@ set shiftwidth=4
 " 長い行を折り返さない
 set nowrap
 
-
-" カレント行ハイライトON
-set cursorline
-
-
 " インサートモードに入った時にカーソル行(列)の色を変更する
 augroup vimrc_change_cursorline_color
   autocmd!
@@ -63,14 +51,10 @@ augroup vimrc_change_cursorline_color
   autocmd InsertLeave * highlight CursorLine ctermbg=236 guibg=#303030 | highlight CursorColumn ctermbg=236 guibg=#303030
 augroup END
 
-
-
-colorscheme inkpot
+colorscheme monokai
 syntax on
 
-
 set guifont=Ricty:h13
-
 
 if has('gui_macvim')
     set lines=90 columns=200 " ウィンドウサイズをセット はみだした部分は自動的に修正させて画面いっぱいに表示させる
