@@ -1,202 +1,117 @@
+" vim: foldmethod=marker
+" vim: foldcolumn=3
+" vim: foldlevel=0
+"-------------------------------------------------------------------------------
+" システム設定{{{1
+"-------------------------------------------------------------------------------
+set shortmess+=I     " 起動時のメッセージを表示しない
+set noerrorbells     " エラー音抑止(gvimはgvimrcで指定)
+set novisualbell     " ビジュアルベル抑止(gvimはgvimrcで指定)
+set visualbell t_vb= " ビープ音抑止(gvimはgvimrcで指定)
 
-set shortmess+=I
-"行番号を表示
-"set number
+"-------------------------------------------------------------------------------
+" エンコーディング設定{{{1
+"---------------------------------------------------------------------------
+set encoding=utf-8
+set fileencoding=utf-8  " 基本文字コード
+set fileencodings=utf-8,cp932 " 文字コード自動判別(優先順)
 
-set relativenumber " 相対行表示
-set showmatch      " 対応する括弧を強調表示
-set cursorline     " カーソル行の背景色を変える
-set cursorcolumn   " カーソル位置のカラムの背景色を変える
+"-------------------------------------------------------------------------------
+" 表示設定{{{1
+"---------------------------------------------------------------------------
+"
+" 縦幅 デフォルト24
+set lines=9999
+" 横幅 デフォルト80
+set columns=9999
 
-set confirm    " 保存されていないファイルがあるときは終了前に保存確認
-set hidden     " 保存されていないファイルがあるときでも別のファイルを開くことが出来る
-set autoread   "外部でファイルに変更がされた場合は読みなおす
-set nobackup   " ファイル保存時にバックアップファイルを作らない
-set noswapfile " ファイル編集中にスワップファイルを作らない
-set iminsert=2
 
-" タイプ途中のコマンドを画面最下行に表示
-set showcmd
 
-set nocursorline " カーソル行を強調表示しない
-" 挿入モードの時のみ、カーソル行をハイライトする
-autocmd InsertEnter,InsertLeave * set cursorline!
+set guifont=Ricty_Diminished:h13 " フォント
+set number            " 行番号を表示
+set relativenumber    " 相対行表示
+set showmatch         " 対応する括弧を強調表示
+syntax on             " シンタックスハイライト
+set cursorline        " カーソル行の背景色を変える
+" set cursorcolumn      " カーソル位置のカラムの背景色を変える
+set ruler             " 右下に行・列の番号を表示
+set title             " タイトル表示
 
- " ビープとビジュアルベルを無効化
- set t_vb=
- set novisualbell
+" 左右のスクロールバーを非表示にする
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
+" 水平スクロールバーを非表示にする
+set guioptions-=b
 
- " タイプ途中のコマンドを画面最下行に表示
- set showcmd
+set list                    " 不可視文字の可視化
+set listchars=eol:¬,tab:▸\  "行末のスペースの記号を変える
 
- " 不可視文字の可視化
- set list
-
- " インデントにハードタブを使う場合の設定。
- " タブ文字を4文字分の幅で表示する。
-set tabstop=4
-set autoindent
-set expandtab
-set shiftwidth=4
-
-" 長い行を折り返さない
-set nowrap
-
-" インサートモードに入った時にカーソル行(列)の色を変更する
-augroup vimrc_change_cursorline_color
-  autocmd!
-  " インサートモードに入った時にカーソル行の色をブルーグリーンにする
-  autocmd InsertEnter * highlight CursorLine ctermbg=24 guibg=#005f87 | highlight CursorColumn ctermbg=24 guibg=#005f87
-  " インサートモードを抜けた時にカーソル行の色を黒に近いダークグレーにする
-  autocmd InsertLeave * highlight CursorLine ctermbg=236 guibg=#303030 | highlight CursorColumn ctermbg=236 guibg=#303030
-augroup END
-
-colorscheme monokai
-syntax on
-
-set guifont=Ricty:h13
-
-if has('gui_macvim')
-    set lines=90 columns=200 " ウィンドウサイズをセット はみだした部分は自動的に修正させて画面いっぱいに表示させる
-    set guioptions-=T " ウィンドウ上部のタブ部分を無効に
-    set imdisable " IMEを無効に
-endif
-
+autocmd InsertEnter,InsertLeave * set cursorline! " 挿入モードの時のみ、カーソル行をハイライトする
 
 " vim-gitgutter
 let g:gitgutter_sign_added = '✚'
 let g:gitgutter_sign_modified = '➜'
 let g:gitgutter_sign_removed = '✘'
 
-" lightline.vim
-let g:lightline = {
-        \ 'colorscheme': 'landscape',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [
-        \     ['mode', 'paste'],
-        \     ['fugitive', 'gitgutter', 'filename'],
-        \   ],
-        \   'right': [
-        \     ['lineinfo', 'syntastic'],
-        \     ['percent'],
-        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-        \   ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode',
-        \   'syntastic': 'SyntasticStatuslineFlag',
-        \   'charcode': 'MyCharCode',
-        \   'gitgutter': 'MyGitGutter',
-        \ },
-        \ 'separator': {'left': '⮀', 'right': '⮂'},
-        \ 'subseparator': {'left': '⮁', 'right': '⮃'}
-        \ }
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
-function! MyModified()
-  return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
-endfunction
 
-function! MyReadonly()
-  return &ft !~? 'help\|vimfiler\|gundo' && &ro ? '⭤' : ''
-endfunction
+" ------------------------------------
+" colorscheme
+" ------------------------------------
+syntax on
+syntax enable
+colorscheme atom-dark
 
-function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-        \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
-        \  &ft == 'unite' ? unite#get_status_string() :
-        \  &ft == 'vimshell' ? substitute(b:vimshell.current_dir,expand('~'),'~','') :
-        \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' != MyModified() ? ' ' . MyModified() : '')
-endfunction
+"" set background=dark
+highlight Normal ctermbg=none
 
-function! MyFugitive()
-  try
-    if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
-      let _ = fugitive#head()
-      return strlen(_) ? '⭠ '._ : ''
-    endif
-  catch
-  endtry
-  return ''
-endfunction
+let g:molokai_original = 1
+let g:rehash256 = 1
 
-function! MyFileformat()
-  return winwidth('.') > 70 ? &fileformat : ''
-endfunction
 
-function! MyFiletype()
-  return winwidth('.') > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
-endfunction
+let g:alduin_Shout_Become_Ethereal = 1
 
-function! MyFileencoding()
-  return winwidth('.') > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
-endfunction
 
-function! MyMode()
-  return winwidth('.') > 60 ? lightline#mode() : ''
-endfunction
 
-function! MyGitGutter()
-  if ! exists('*GitGutterGetHunkSummary')
-        \ || ! get(g:, 'gitgutter_enabled', 0)
-        \ || winwidth('.') <= 90
-    return ''
-  endif
-  let symbols = [
-        \ g:gitgutter_sign_added . ' ',
-        \ g:gitgutter_sign_modified . ' ',
-        \ g:gitgutter_sign_removed . ' '
-        \ ]
-  let hunks = GitGutterGetHunkSummary()
-  let ret = []
-  for i in [0, 1, 2]
-    if hunks[i] > 0
-      call add(ret, symbols[i] . hunks[i])
-    endif
-  endfor
-  return join(ret, ' ')
-endfunction
+"-------------------------------------------------------------------------------
+" 編集{{{1
+"---------------------------------------------------------------------------
+set infercase      " 補完の際の大文字小文字の区別しない
+set cmdheight=2    " メッセージ表示欄を2行確保
+set tabstop=4      " 画面上でタブ文字が占める幅
+" set autoindento    " 改行時に前の行のインデントを継続する
+set expandtab      "タブ入力を複数の空白入力に置き換える
+set shiftwidth=4   " 自動インデントでずれる幅
+set nowrap         " 長い行を折り返さない
 
-" https://github.com/Lokaltog/vim-powerline/blob/develop/autoload/Powerline/Functions.vim
-function! MyCharCode()
-  if winwidth('.') <= 70
-    return ''
-  endif
+set confirm    " 保存されていないファイルがあるときは終了前に保存確認
+set hidden     " 保存されていないファイルがあるときでも別のファイルを開くことが出来る
+set autoread   " 外部でファイルに変更がされた場合は読みなおす
+set nobackup   " ファイル保存時にバックアップファイルを作らない
+set noswapfile " ファイル編集中にスワップファイルを作らない
 
-  " Get the output of :ascii
-  redir => ascii
-  silent! ascii
-  redir END
+"-------------------------------------------------------------------------------
+" 検索/置換設定{{{1
+"-------------------------------------------------------------------------------
+set ignorecase   " 大/小文字無視
+set smartcase    " ただし大文字を含む検索の場合は大/小文字有効
+set incsearch    " インクリメンタルサーチ有効
+set hlsearch     " 検索結果ハイライト表示
+set wrapscan     " 検索をファイルの先頭へループする
+set gdefault     " 置換の時 g オプションをデフォルトで有効
 
-  if match(ascii, 'NUL') != -1
-    return 'NUL'
-  endif
 
-  " Zero pad hex values
-  let nrformat = '0x%02x'
 
-  let encoding = (&fenc == '' ? &enc : &fenc)
 
-  if encoding == 'utf-8'
-    " Zero pad with 4 zeroes in unicode files
-    let nrformat = '0x%04x'
-  endif
+" インサートモードから抜けると自動的にIMEをオフにする
+set iminsert=2
 
-  " Get the character and the numeric value from the return value of :ascii
-  " This matches the two first pieces of the return value, e.g.
-  " "<F>  70" => char: 'F', nr: '70'
-  let [str, char, nr; rest] = matchlist(ascii, '\v\<(.{-1,})\>\s*([0-9]+)')
+" コマンドラインの設定
 
-  " Format the numeric value
-  let nr = printf(nrformat, nr)
-
-  return "'". char ."' ". nr
-endfunction
+" コマンドラインモードでTABキーによるファイル名補完を有効にする
+set wildmenu wildmode=list:longest,full
+" コマンドラインの履歴を10000件保存する
+set history=10000
