@@ -34,7 +34,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-" My Bundles here:
+" My Bundles hereMatchTagAlways:
 " Refer to |:NeoBundle-examples|
 " Note: You don't set neobundle setting in .gvimrc!
 
@@ -56,7 +56,6 @@ NeoBundle 'thinca/vim-quickrun'
 "参考 http://leafcage.hateblo.jp/entry/2013/10/31/yankroundvim
 NeoBundle 'LeafCage/yankround.vim'
 NeoBundle 'thinca/vim-qfreplace.git'
-NeoBundle 'jreybert/vimagit'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'MattesGroeger/vim-bookmarks'
 NeoBundle 'rking/ag.vim'
@@ -94,7 +93,6 @@ NeoBundle "tyru/caw.vim.git"
 NeoBundle 'open-browser.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'vim-scripts/mru.vim'
-NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'sudo.vim'
 
 " TODO 未設定
@@ -119,6 +117,11 @@ NeoBundle 'mattn/webapi-vim'
 " NeoBundle 'airblade/vim-gitgutter'
 " NeoBundle 'skammer/vim-css-color'
 " NeoBundle 'osyo-manga/vim-over'
+" NeoBundle 'vim-airline/vim-airline'
+" NeoBundle 'edkolev/tmuxline.vim'
+" NeoBundle 'jreybert/vimagit'
+
+NeoBundle 'maciakl/vim-neatstatus'
 
 call neobundle#end()
 
@@ -177,28 +180,23 @@ nnoremap <silent> <Space>gp :Gpull<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
 nnoremap <silent> <Space>gb :Gblame<CR>
 nnoremap <silent> <Space>gs :Gstatus<CR>
-nnoremap <silent> <Space>gr : :Gread<CR>
+nnoremap <silent> <Space>gr :Gread<CR>
+nnoremap <silent> <Space>push :GitiPush
 
 " 次の差分箇所に移動
 nmap <C-j> <Plug>(signify-next-hunk)zz
 " 前の差分箇所に移動
 nmap <C-k> <Plug>(signify-prev-hunk)zz
-" 差分箇所をハイライト
-nmap <Space>gh <Plug>(signify-toggle-highlight)
-" 差分表示をトグルする(:SignifyToggleコマンドと同じ)
-nmap <Space>gt <Plug>(signify-toggle)
 
 " 履歴閲覧プラグイン(Exから叩いて良い気がする）
-nnoremap <silent> <Space>ag : :Agit<CR>
-" gitクライアント(Exから叩いて良い気がする）
-nnoremap <silent> <Space>mg : :Magit<CR>
+nnoremap <silent> <Space>a : :Agit<CR>
 
 " 行ブックマーク NeoBundle 'MattesGroeger/vim-bookmarks'
 nmap <D-F2> <Plug>BookmarkToggle
 nmap <silent> <Space>bl  <Plug>BookmarkShowAll
 nmap <F2> <Plug>BookmarkNext
 " nmap <S-F2> <Plug>BookmarkPrev
-" nmap <Space>x <Plug>BookmarkClearAll
+nmap <Space>bc <Plug>BookmarkClearAll
 "
 
 nnoremap <A-F1> :NERDTreeFind<CR>
@@ -208,23 +206,22 @@ nmap <silent> <F1> :TagbarToggle<CR>
 " .vimrc|.gvimrcを素早く開く
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
- " TODO hosts ファイルetc
- "
+
 " バッファ移動
 nnoremap <C-l> :bn<CR>
 nnoremap <C-h> :bp<CR>
 
 nmap <D-I> :VimFilerBufferDir<CR>
+inoremap <D-I> <ESC>:VimFilerBufferDir<CR>
 
-nnoremap <silent> <Space>on  :only<CR>
+nnoremap <silent> <Space>o  :only<CR>
 " 行削除(Dでは無理っぽい）
 nnoremap <D-K> dd
-inoremap <D-K> :d
+inoremap <D-K> <ESC>ddi
 
 " TODO com+Nのキーマップ 候補
 " TODO fNのキーマップ 候補
 "登録済み nnoremap <D-1> :NERDTreeClose<CR>
-nnoremap <D-3> :Magit<CR>
 " nnoremap <F3> :Agit<CR>
 nnoremap <F3> :MRU<CR>
 
@@ -274,7 +271,7 @@ set hlsearch
 "" ステータスラインを常に表示（編集中のファイル名が常に確認できるようになる）
 set laststatus=2
 " gitのブランチ名表示 http://marutanm.hatenablog.com/entry/20110706/p1
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 "---------------------------------------------------------------------------
 " 各種プラグインの設定
@@ -305,6 +302,9 @@ if filereadable(expand('~/.vim/plugin/buftabs.vim'))
     let g:buftabs_marker_modified = "+"
 endif
 
+"vimfiler セーフモード OFF (削除やリネームの制限解除)
+let g:vimfiler_safe_mode_by_default = 0
+
 " 起動時の履歴設定 vim-startify  http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify
 let g:startify_files_number = 5
 let g:startify_list_order = [
@@ -317,7 +317,7 @@ let g:startify_list_order = [
         \ ['☺  ブックマーク:'],
         \ 'bookmarks',
         \ ]
-let g:startify_bookmarks = ["~/.vimrc", "~/.gvimrc"]
+let g:startify_bookmarks = ["~/.vimrc", "~/.gvimrc" , "/private/etc/hosts" , "/Applications/MAMP/conf/apache/httpd.conf" , "/Applications/MAMP/conf/apache/extra/httpd-vhosts.conf" ]
 
 " ASCII ARTを真ん中寄せする
 " :h startifyを参照

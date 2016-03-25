@@ -6,3 +6,4 @@ rm -r  ~/.gvimrc
 rm -r  ~/.oh-my-zsh
 rm -r  ~/.zshrc
 rm -r  ~/.snippets
+rm -r  ~/.tigrc

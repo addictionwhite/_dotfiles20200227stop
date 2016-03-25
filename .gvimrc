@@ -49,6 +49,8 @@ set guioptions-=b
 
 set list  " 不可視文字を表示する
 set listchars=tab:>-,trail:.  " タブを >--- 半スペを . で表示する
+" 長いテキストで重くなる現象を回避
+set synmaxcol=200
 
 " ------------------------------------
 " colorscheme
@@ -90,4 +92,3 @@ set gdefault     " 置換の時 g オプションをデフォルトで有効
 set wildmenu wildmode=list:longest,full
 "履歴を10000件保存する
 set history=10000
-
