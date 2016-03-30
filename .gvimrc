@@ -16,7 +16,8 @@ set iminsert=2
 "---------------------------------------------------------------------------
 set encoding=utf-8
 set fileencoding=utf-8  " 基本文字コード
-set fileencodings=utf-8,cp932 " 文字コード自動判別(優先順)
+set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+" set fileencodings=utf-8,cp932 " 文字コード自動判別(優先順)
 
 "-------------------------------------------------------------------------------
 " 表示設定
@@ -51,11 +52,12 @@ set list  " 不可視文字を表示する
 set listchars=tab:>-,trail:.  " タブを >--- 半スペを . で表示する
 " 長いテキストで重くなる現象を回避
 set synmaxcol=200
+" ステータスラインを常に表示（編集中のファイル名が常に確認できるようになる）
+set laststatus=2
 
 " ------------------------------------
 " colorscheme
 " ------------------------------------
-" syntax on
 colorscheme atom-dark
 
 "-------------------------------------------------------------------------------
@@ -92,3 +94,4 @@ set gdefault     " 置換の時 g オプションをデフォルトで有効
 set wildmenu wildmode=list:longest,full
 "履歴を10000件保存する
 set history=10000
+

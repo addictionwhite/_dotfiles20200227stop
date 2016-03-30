@@ -16,56 +16,35 @@ augroup END
 " :vimgrepに加えて:grep、:Ggrepでも自動的にquickfix-windowを開く
 autocmd QuickFixCmdPost *grep* cwindow
 
-"-------- NeoBundleStart --------
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
+"-------- vim-plug START --------
+call plug#begin('~/.vim/plugged')
 
-if &compatible
- set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath^=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles hereMatchTagAlways:
-" Refer to |:NeoBundle-examples|
-" Note: You don't set neobundle setting in .gvimrc!
-
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'gregsexton/MatchTag'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
+Plug 'mattn/emmet-vim'
+Plug 'Yggdroot/indentLine'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'gregsexton/MatchTag'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 " 補完 START 参考 http://kaworu.jpn.org/vim/vim%E3%81%AEPHP%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83#neocomplete-php {{{2
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/unite.vim.git'
-NeoBundle 'h1mesuke/unite-outline'
-NeoBundle 'kmnk/vim-unite-giti.git'
-NeoBundle 'gosukiwi/vim-atom-dark'
-NeoBundle 'simeji/winresizer'
-NeoBundle 'thinca/vim-quickrun'
+Plug 'Shougo/neocomplete.vim'
+Plug 'h1mesuke/unite-outline'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'simeji/winresizer'
+Plug 'thinca/vim-quickrun'
 " レジスタ履歴を利用したヤンク
 "参考 http://leafcage.hateblo.jp/entry/2013/10/31/yankroundvim
-NeoBundle 'LeafCage/yankround.vim'
-NeoBundle 'thinca/vim-qfreplace.git'
-NeoBundle 'Xuyuanp/nerdtree-git-plugin'
-NeoBundle 'MattesGroeger/vim-bookmarks'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'mhinz/vim-signify'
-NeoBundle 'cohama/agit.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'open-browser.vim'
-NeoBundle 'mbbill/undotree'
-NeoBundle 'Shougo/vimproc.vim', {
+Plug 'LeafCage/yankround.vim'
+Plug 'thinca/vim-qfreplace'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'rking/ag.vim'
+Plug 'mhinz/vim-signify'
+Plug 'cohama/agit.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'open-browser.vim'
+Plug 'mbbill/undotree'
+Plug 'Shougo/vimproc.vim', {
 \ 'build' : {
 \     'windows' : 'tools\\update-dll-mingw',
 \     'cygwin' : 'make -f make_cygwin.mak',
@@ -74,67 +53,61 @@ NeoBundle 'Shougo/vimproc.vim', {
 \     'unix' : 'gmake',
 \    },
 \ }
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'soramugi/auto-ctags.vim'
-NeoBundle 'hail2u/vim-css3-syntax'
+Plug 'Shougo/vimshell.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'soramugi/auto-ctags.vim'
+Plug 'hail2u/vim-css3-syntax'
 " カーソル配下の単語をハイライト
-NeoBundle 'osyo-manga/vim-brightest'
-NeoBundle 'Lokaltog/vim-easymotion'
+Plug 'osyo-manga/vim-brightest'
+Plug 'Lokaltog/vim-easymotion'
 " スニペット
 " 参考http://qiita.com/koyopro/items/c473b3c2323501b7891a
-NeoBundle 'Shougo/neocomplcache'
-" NeoBundle 'Shougo/neosnippet'
-NeoBundle 'violetyk/neocomplete-php.vim'
-NeoBundle 'mhinz/vim-startify'
-NeoBundle 'glidenote/memolist.vim'
-NeoBundle 'Shougo/vimfiler'
-NeoBundle "tyru/caw.vim.git"
-NeoBundle 'open-browser.vim'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-scripts/mru.vim'
-NeoBundle 'sudo.vim'
+Plug 'Shougo/neocomplcache'
+" Plug 'Shougo/neosnippet'
+Plug 'violetyk/neocomplete-php.vim'
+Plug 'mhinz/vim-startify'
+Plug 'glidenote/memolist.vim'
+Plug 'Shougo/vimfiler' | Plug 'Shougo/unite.vim'
+Plug 'tyru/caw.vim'
+Plug 'open-browser.vim'
+Plug 'vim-scripts/mru.vim'
+Plug 'sudo.vim'
+" Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
+Plug 'plasticboy/vim-markdown' | Plug 'kannokanno/previm' | Plug 'tyru/open-browser.vim'
+Plug 'maciakl/vim-neatstatus'
+Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 
 " TODO 未設定
-NeoBundle "scrooloose/syntastic"
+Plug 'scrooloose/syntastic'
 " TODO 使い方
-NeoBundle 'deris/vim-rengbang'
-NeoBundle 'mattn/webapi-vim'
+Plug 'deris/vim-rengbang'
+Plug 'junegunn/vim-github-dashboard'
 
-"NeoBundle 'L9'
-"NeoBundle 'vim-scripts/FuzzyFinder'
+"Plug 'L9'
+"Plug 'vim-scripts/FuzzyFinder'
 " 別プラグインとぶつかってエラーになる https://github.com/vim-jp/issues/issues/584
-" NeoBundle 'taichouchou2/html5.vim'
-" NeoBundle 'taichouchou2/vim-javascript'
-" NeoBundle 'akira-hamada/friendly-grep.vim'
-" NeoBundle 'valloric/matchtagalways'
-" NeoBundle 'vim-scripts/dbext.vim'
-" NeoBundle 'AlessandroYorba/Alduin'
-" NeoBundle 'jistr/vim-nerdtree-tabs'
-" NeoBundle 'tyru/restart.vim'
-" NeoBundle 'gregsexton/MatchTag'
-" NeoBundle 'gregsexton/tgitv'
-" NeoBundle 'airblade/vim-gitgutter'
-" NeoBundle 'skammer/vim-css-color'
-" NeoBundle 'osyo-manga/vim-over'
-" NeoBundle 'vim-airline/vim-airline'
-" NeoBundle 'edkolev/tmuxline.vim'
-" NeoBundle 'jreybert/vimagit'
+" Plug 'taichouchou2/html5.vim'
+" Plug 'taichouchou2/vim-javascript'
+" Plug 'akira-hamada/friendly-grep.vim'
+" Plug 'valloric/matchtagalways'
+" Plug 'vim-scripts/dbext.vim'
+" Plug 'AlessandroYorba/Alduin'
+" Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'tyru/restart.vim'
+" Plug 'gregsexton/MatchTag'
+" Plug 'gregsexton/tgitv'
+" Plug 'airblade/vim-gitgutter'
+" Plug 'skammer/vim-css-color'
+" Plug 'osyo-manga/vim-over'
+" Plug 'vim-airline/vim-airline'
+" Plug 'edkolev/tmuxline.vim'
+" Plug 'jreybert/vimagit'
+" Plug 'kmnk/vim-unite-giti'
+" Plug 'majutsushi/tagbar'
+" Plug 'lambdalisue/vim-gista'
 
-NeoBundle 'maciakl/vim-neatstatus'
-
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-
-" チェック
-" NeoBundleCheck
-
-"-------- NeoBundleEnd
+call plug#end()
+"-------- vim-plug END --------
 
 "---------------------------------------------------------------------------
 " キー設定
@@ -149,7 +122,6 @@ inoremap <D-j> <Down>
 inoremap <D-k> <Up>
 inoremap <D-h> <Left>
 inoremap <D-l> <Right>
-
 " 検索のハイライト取り消し
 nnoremap <ESC><ESC> :nohlsearch<CR>
 
@@ -157,6 +129,15 @@ nnoremap <ESC><ESC> :nohlsearch<CR>
 nmap s <Plug>(easymotion-s2)
 " Emmet
 nmap <silent> <Space>em  :Emmet
+" MorkDown Prevew
+nmap <silent> <Space>mk  :PrevimOpen
+" VimFiler
+nmap <D-I> :VimFilerBufferDir<CR>
+inoremap <D-I> <ESC>:VimFilerBufferDir<CR>
+"履歴一覧(kien/ctrlp.vim)
+nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
+" Web検索
+nnoremap <silent> <Space>go :OpenBrowserSearch
 
 "/yankround.vim'用キーマップ
 nmap p <Plug>(yankround-p)
@@ -167,14 +148,16 @@ nmap gP <Plug>(yankround-gP)
 " nmap <C-n> <Plug>(yankround-next)
 nmap pp <Plug>(yankround-prev)
 nmap pb <Plug>(yankround-next)
-""履歴一覧(kien/ctrlp.vim)
-nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
 
-" Web検索
-nnoremap <silent> <Space>ob :OpenBrowserSearch
-nnoremap <silent> <Space>go :OpenBrowserSearch
+" メモプラグイン
+nnoremap <Space>mn :MemoNew<CR>
+nnoremap <Space>ml :MemoList<CR>
+nnoremap <Space>mg :MemoGrep<CR>
 
-"---------------Git---------------
+" 辞書
+nmap <silent> <Space>dt  :DictionaryTranslate
+
+"---------------Git START---------------
 nnoremap <silent> <Space>gl :GitiLog<CR>
 nnoremap <silent> <Space>gp :Gpull<CR>
 nnoremap <silent> <Space>gd :Gdiff<CR>
@@ -183,56 +166,67 @@ nnoremap <silent> <Space>gs :Gstatus<CR>
 nnoremap <silent> <Space>gr :Gread<CR>
 nnoremap <silent> <Space>push :GitiPush
 
+" 履歴閲覧プラグイン(Exから叩いて良い気がする）
+nnoremap <silent> <Space>a : :Agit<CR>
 " 次の差分箇所に移動
 nmap <C-j> <Plug>(signify-next-hunk)zz
 " 前の差分箇所に移動
 nmap <C-k> <Plug>(signify-prev-hunk)zz
+"---------------Git END---------------
 
-" 履歴閲覧プラグイン(Exから叩いて良い気がする）
-nnoremap <silent> <Space>a : :Agit<CR>
-
-" 行ブックマーク NeoBundle 'MattesGroeger/vim-bookmarks'
+" 行ブックマーク Plug 'MattesGroeger/vim-bookmarks'
 nmap <D-F2> <Plug>BookmarkToggle
 nmap <silent> <Space>bl  <Plug>BookmarkShowAll
 nmap <F2> <Plug>BookmarkNext
 " nmap <S-F2> <Plug>BookmarkPrev
 nmap <Space>bc <Plug>BookmarkClearAll
-"
 
+" NERDTree
 nnoremap <A-F1> :NERDTreeFind<CR>
 nnoremap <D-1> :NERDTreeClose<CR>
-nmap <silent> <F1> :TagbarToggle<CR>
-"
-" .vimrc|.gvimrcを素早く開く
-nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
-nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
 
 " バッファ移動
 nnoremap <C-l> :bn<CR>
 nnoremap <C-h> :bp<CR>
-
-nmap <D-I> :VimFilerBufferDir<CR>
-inoremap <D-I> <ESC>:VimFilerBufferDir<CR>
-
+" バッファ削除
+nnoremap <C-w>b  :bd<CR>
 nnoremap <silent> <Space>o  :only<CR>
+
 " 行削除(Dでは無理っぽい）
 nnoremap <D-K> dd
 inoremap <D-K> <ESC>ddi
 
-" TODO com+Nのキーマップ 候補
-" TODO fNのキーマップ 候補
-"登録済み nnoremap <D-1> :NERDTreeClose<CR>
-" nnoremap <F3> :Agit<CR>
-nnoremap <F3> :MRU<CR>
+" コメントアウト
+nmap <D-/> <Plug>(caw:i:toggle)
+vmap <D-/> <Plug>(caw:i:toggle)
 
-nnoremap <silent> <Space>ni  :NeoBundleInstall<CR>
-nnoremap <silent> <Space>nu  :NeoBundleUpdate<CR>
+nnoremap <silent> <Space>pi  :PlugInstall<CR>
+nnoremap <silent> <Space>pu  :PlugUpdate<CR>
+
+" .設定ファイルを開く
+nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
+nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
+nnoremap <silent> <Space>el  :<C-u>edit ~/Dropbox/vim/vimrc_local<CR>
+
+" 設定再読み込み
 nnoremap <silent> <Space>sv  :source ~/.vimrc<CR>
 nnoremap <silent> <Space>sg  :source ~/.gvimrc<CR>
 
-" バッファ削除
-" nnoremap <silent> <Space>bd  :bd<CR>
-nnoremap <C-w>b  :bd<CR>
+"
+" TODO com+Nのキーマップ
+" TODO fNのキーマップ
+
+" vimコマンド出力をクリップボードへコピー(コピーしたいコマンドを引数に与える) http://d.hatena.ne.jp/hide04/20111223/1324621495
+nnoremap <F1> :CopyCmdOutput
+" nmap <F2> <Plug>BookmarkNext 設定済み
+" 最近開いたファイルを開く
+nnoremap <F3> :MRU<CR>
+
+" TODO GHDashboard
+" TODO Gist系
+" :Gist -l
+" :Gist -p " 開いたバッファをPOSTする
+" :Gist -d " バッファを開いてコマンドを叩く
 
  "---------------検索,置換---------------
  " Ag(Grep)
@@ -252,26 +246,13 @@ vnoremap <expr> f* '/' . expand('<cword>')
 
 nnoremap /  /\v
 
- "------------------------------
-
-" コメントアウト
-nmap <D-/> <Plug>(caw:i:toggle)
-vmap <D-/> <Plug>(caw:i:toggle)
-
-" 検索にマッチしたすべてのテキストが ハイライト
-set hlsearch
-
+"------------------------------
 " スニペットプラグイン設定
 "  " let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
 " let g:neosnippet#snippets_directory=$HOME.'/snippets'
 " imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 " xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-"" ステータスラインを常に表示（編集中のファイル名が常に確認できるようになる）
-set laststatus=2
-" gitのブランチ名表示 http://marutanm.hatenablog.com/entry/20110706/p1
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 "---------------------------------------------------------------------------
 " 各種プラグインの設定
@@ -334,13 +315,59 @@ let g:startify_custom_indices = ['f', 'g', 'h', 'r', 'i', 'o', 'b']
 " メモプラグイン memolist.vim settings
 let g:memolist_path = "~/Dropbox/vim/memolist"
 let g:memolist_template_dir_path = "~/.vim/template/memolist"
-nnoremap <Space>mn :MemoNew<CR>
-nnoremap <Space>ml :MemoList<CR>
-nnoremap <Space>mg :MemoGrep<CR>
 
+" Vimで和英、英和翻訳 http://qiita.com/ass_out/items/e26760a9ee1b427dfd9d
+function! s:DictionaryTranslate(...)
+    let l:word = a:0 == 0 ? expand('<cword>') : a:1
+    call histadd('cmd', 'DictionaryTranslate '  . l:word)
+    if l:word ==# '' | return | endif
+    let l:gene_path = '~/.vim/dict/gene.txt'
+    let l:jpn_to_eng = l:word !~? '^[a-z_]\+$'
+    let l:output_option = l:jpn_to_eng ? '-B 1' : '-A 1' " 和英 or 英和
+
+    silent pedit Translate\ Result | wincmd P | %delete " 前の結果が残っていることがあるため
+    setlocal buftype=nofile noswapfile modifiable
+    silent execute 'read !grep -ihw' l:output_option l:word l:gene_path
+    silent 0delete
+    let l:esc = @z
+    let @z = ''
+    while search("^" . l:word . "$", "Wc") > 0 " 完全一致したものを上部に移動
+        silent execute line('.') - l:jpn_to_eng . "delete Z 2"
+    endwhile
+    silent 0put z
+    let @z = l:esc
+    silent call append(line('.'), '==')
+    silent 1delete
+    silent wincmd p
+endfunction
+command! -nargs=? -complete=command DictionaryTranslate call <SID>DictionaryTranslate(<f-args>)
+
+" vimコマンド出力をクリップボードへコピー(コピーしたいコマンドを引数に与える) http://d.hatena.ne.jp/hide04/20111223/1324621495
+func! s:func_copy_cmd_output(cmd)
+    redir @*>
+    silent execute a:cmd
+    redir END
+endfunc
+
+command! -nargs=1 -complete=command CopyCmdOutput call <SID>func_copy_cmd_output(<q-args>)
+
+"Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
+au BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'open -a Firefox'
 "---------------------------------------------------------------------------
-" 簡易スニペット(1行のみ）neocomplcache*キー+Tabでシンプルに出力させるため
+" 簡易スニペットneocomplcache*キー+Tabでシンプルに出力させるため (Memo:Ctrl+V, Ctrl+Mで改行コード を出力できる
 "---------------------------------------------------------------------------
+" TODO 拡張子ごとに変えられないか 参考http://d.hatena.ne.jp/osyo-manga/20111025/1319546057
 inoremap v<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO2<C-c>
-inoremap fe<TAB> foreach ($arr as $value) {}<C-c>
-inoremap fu<TAB> function test() {}<C-c>
+inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/Applications/MAMP/logs/debug.log'); //TODO'); //TODO2<C-c>
+inoremap fe<TAB> foreach ($arr as $value)
+\{ }<C-c>
+inoremap fu<TAB> function test() { }<C-c>
+
+" TODO Class if for ifel  array | js click css
+
+" http://auewe.hatenablog.com/entry/2013/05/14/003610
+if filereadable(expand($HOME.'/Dropbox//vim/vimrc_local'))
+  source $HOME/Dropbox//vim/vimrc_local
+endif
+
