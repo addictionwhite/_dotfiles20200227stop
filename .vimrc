@@ -29,6 +29,9 @@ Plug 'tpope/vim-surround'
 Plug 'Shougo/neocomplete.vim'
 Plug 'h1mesuke/unite-outline'
 Plug 'gosukiwi/vim-atom-dark'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'vim-scripts/pyte'
+
 Plug 'simeji/winresizer'
 Plug 'thinca/vim-quickrun'
 " レジスタ履歴を利用したヤンク
@@ -40,42 +43,57 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'rking/ag.vim'
 Plug 'mhinz/vim-signify'
 Plug 'cohama/agit.vim'
+Plug 'jreybert/vimagit'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'open-browser.vim'
 Plug 'mbbill/undotree'
-Plug 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make -f make_mac.mak',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
+" Plug 'Shougo/vimproc.vim', {
+" \ 'build' : {
+" \     'windows' : 'tools\\update-dll-mingw',
+" \     'cygwin' : 'make -f make_cygwin.mak',
+" \     'mac' : 'make -f make_mac.mak',
+" \     'linux' : 'make',
+" \     'unix' : 'gmake',
+" \    },
+" \ }
 Plug 'Shougo/vimshell.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'soramugi/auto-ctags.vim'
-Plug 'hail2u/vim-css3-syntax'
 " カーソル配下の単語をハイライト
 Plug 'osyo-manga/vim-brightest'
 Plug 'Lokaltog/vim-easymotion'
 " スニペット
 " 参考http://qiita.com/koyopro/items/c473b3c2323501b7891a
 Plug 'Shougo/neocomplcache'
-" Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'violetyk/neocomplete-php.vim'
 Plug 'mhinz/vim-startify'
 Plug 'glidenote/memolist.vim'
 Plug 'Shougo/vimfiler' | Plug 'Shougo/unite.vim'
+Plug 'Shougo/neomru.vim'
 Plug 'tyru/caw.vim'
 Plug 'open-browser.vim'
 Plug 'vim-scripts/mru.vim'
 Plug 'sudo.vim'
 " Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
 Plug 'plasticboy/vim-markdown' | Plug 'kannokanno/previm' | Plug 'tyru/open-browser.vim'
-Plug 'maciakl/vim-neatstatus'
+"  Plug 'maciakl/vim-neatstatus'
 Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
+
+Plug 'shikato/keysender.vim'
+Plug 'shikato/vim2browser.vim'
+Plug 'whatyouhide/vim-gotham'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/copypath.vim'
+Plug 'ternjs/tern_for_vim'
+Plug 'vim-scripts/Align'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'sjl/gundo.vim'
+Plug 'osyo-manga/vim-anzu'
+Plug 'airblade/vim-rooter'
 
 " TODO 未設定
 Plug 'scrooloose/syntastic'
@@ -83,8 +101,11 @@ Plug 'scrooloose/syntastic'
 Plug 'deris/vim-rengbang'
 Plug 'junegunn/vim-github-dashboard'
 
-"Plug 'L9'
-"Plug 'vim-scripts/FuzzyFinder'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" Plug 'itchyny/lightline.vim'
+" Plug 'L9'
+" Plug 'vim-scripts/FuzzyFinder'
 " 別プラグインとぶつかってエラーになる https://github.com/vim-jp/issues/issues/584
 " Plug 'taichouchou2/html5.vim'
 " Plug 'taichouchou2/vim-javascript'
@@ -93,7 +114,6 @@ Plug 'junegunn/vim-github-dashboard'
 " Plug 'vim-scripts/dbext.vim'
 " Plug 'AlessandroYorba/Alduin'
 " Plug 'jistr/vim-nerdtree-tabs'
-" Plug 'tyru/restart.vim'
 " Plug 'gregsexton/MatchTag'
 " Plug 'gregsexton/tgitv'
 " Plug 'airblade/vim-gitgutter'
@@ -101,10 +121,15 @@ Plug 'junegunn/vim-github-dashboard'
 " Plug 'osyo-manga/vim-over'
 " Plug 'vim-airline/vim-airline'
 " Plug 'edkolev/tmuxline.vim'
-" Plug 'jreybert/vimagit'
 " Plug 'kmnk/vim-unite-giti'
 " Plug 'majutsushi/tagbar'
 " Plug 'lambdalisue/vim-gista'
+" Plug 'szw/vim-tags'
+" Plug 'aquach/vim-http-client'
+" Plug 'tyru/restart.vim'
+" Plug 'tyru/eskk.vim'
+" Plug 'flazz/vim-colorschemes'
+" Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 "-------- vim-plug END --------
@@ -122,13 +147,11 @@ inoremap <D-j> <Down>
 inoremap <D-k> <Up>
 inoremap <D-h> <Left>
 inoremap <D-l> <Right>
-" 検索のハイライト取り消し
-nnoremap <ESC><ESC> :nohlsearch<CR>
 
 " easyMotion
 nmap s <Plug>(easymotion-s2)
 " Emmet
-nmap <silent> <Space>em  :Emmet
+nmap <silent> <Space>em  :Emmet 
 " MorkDown Prevew
 nmap <silent> <Space>mk  :PrevimOpen
 " VimFiler
@@ -153,9 +176,6 @@ nmap pb <Plug>(yankround-next)
 nnoremap <Space>mn :MemoNew<CR>
 nnoremap <Space>ml :MemoList<CR>
 nnoremap <Space>mg :MemoGrep<CR>
-
-" 辞書
-nmap <silent> <Space>dt  :DictionaryTranslate
 
 "---------------Git START---------------
 nnoremap <silent> <Space>gl :GitiLog<CR>
@@ -185,39 +205,53 @@ nmap <Space>bc <Plug>BookmarkClearAll
 nnoremap <A-F1> :NERDTreeFind<CR>
 nnoremap <D-1> :NERDTreeClose<CR>
 
-" バッファ移動
+" バッファ(タブ)移動
 nnoremap <C-l> :bn<CR>
 nnoremap <C-h> :bp<CR>
 " バッファ削除
 nnoremap <C-w>b  :bd<CR>
-nnoremap <silent> <Space>o  :only<CR>
+" バッファを閉じる
+nnoremap <silent> <Space>bc  :bd<CR>
+" すべてのバッファを閉じる（Vimは閉じない）
+nnoremap <silent> <Space>ba  :%b<CR>
+" 自分以外のバッファを閉じる
+nnoremap <silent> <Space>bo  :BufOnly<CR>
+" 自分以外のウィンドウを閉じる
+nnoremap <silent> <Space>on  :only<CR>
+" finderで開く
+nnoremap <silent> <Space>of  :! open .<CR><CR>
 
 " 行削除(Dでは無理っぽい）
 nnoremap <D-K> dd
 inoremap <D-K> <ESC>ddi
+vnoremap <D-K> dd
 
 " コメントアウト
 nmap <D-/> <Plug>(caw:i:toggle)
 vmap <D-/> <Plug>(caw:i:toggle)
 
+" プラグイン更新
 nnoremap <silent> <Space>pi  :PlugInstall<CR>
 nnoremap <silent> <Space>pu  :PlugUpdate<CR>
-
 " .設定ファイルを開く
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
 nnoremap <silent> <Space>el  :<C-u>edit ~/Dropbox/vim/vimrc_local<CR>
 
+nnoremap <silent> <Space>cl  :<C-u>view ~/Dropbox/vim/command_list<CR>
+nnoremap <silent> <Space>sl  :<C-u>view ~/Dropbox/vim/setting_list<CR>
+
 " 設定再読み込み
 nnoremap <silent> <Space>sv  :source ~/.vimrc<CR>
 nnoremap <silent> <Space>sg  :source ~/.gvimrc<CR>
 
-"
+" 余っているキーマップ
 " TODO com+Nのキーマップ
 " TODO fNのキーマップ
 
 " vimコマンド出力をクリップボードへコピー(コピーしたいコマンドを引数に与える) http://d.hatena.ne.jp/hide04/20111223/1324621495
-nnoremap <F1> :CopyCmdOutput
+" nnoremap <F1> :CopyCmdOutput
+nnoremap <F1> :Startify<CR>
 " nmap <F2> <Plug>BookmarkNext 設定済み
 " 最近開いたファイルを開く
 nnoremap <F3> :MRU<CR>
@@ -244,15 +278,24 @@ vnoremap <expr> r* ':s ;\<' . expand('<cword>') . '\>;'
 nnoremap <expr> f* '/' . expand('<cword>')
 vnoremap <expr> f* '/' . expand('<cword>')
 
-nnoremap /  /\v
+" very magigを使うとvim-anzuが効かなくなる？
+" nnoremap /  /\v
 
-"------------------------------
-" スニペットプラグイン設定
-"  " let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
-" let g:neosnippet#snippets_directory=$HOME.'/snippets'
-" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-" xmap <C-k>     <Plug>(neosnippet_expand_target)
+" ファイルパス、ファイル名称取得
+nnoremap <silent> <Space>cp  :CopyPath<CR>
+nnoremap <silent> <Space>pf  :CopyFileName<CR>
+
+" ctags設定
+nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+" tagsジャンプの時に複数ある時は一覧表示
+nnoremap <C-]> g<C-]>
+nnoremap <silent> <Space>tg :TagsGenerate<CR>
+
+" 保存した際にctags生成 (soramugi/auto-ctags.vim)
+let g:auto_ctags = 1
+
+" ビジュアルモードで囲った箇所をイコール揃え(Alignプラグイン）
+vnoremap <silent> <Space>=   :Align<CR>
 
 "---------------------------------------------------------------------------
 " 各種プラグインの設定
@@ -286,7 +329,7 @@ endif
 "vimfiler セーフモード OFF (削除やリネームの制限解除)
 let g:vimfiler_safe_mode_by_default = 0
 
-" 起動時の履歴設定 vim-startify  http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify
+" START_vim-startify  起動時の履歴設定 http://mjhd.hatenablog.com/entry/recommendation-of-vim-startify
 let g:startify_files_number = 5
 let g:startify_list_order = [
         \ ['♻  最近使ったファイル:'],
@@ -298,7 +341,6 @@ let g:startify_list_order = [
         \ ['☺  ブックマーク:'],
         \ 'bookmarks',
         \ ]
-let g:startify_bookmarks = ["~/.vimrc", "~/.gvimrc" , "/private/etc/hosts" , "/Applications/MAMP/conf/apache/httpd.conf" , "/Applications/MAMP/conf/apache/extra/httpd-vhosts.conf" ]
 
 " ASCII ARTを真ん中寄せする
 " :h startifyを参照
@@ -312,62 +354,131 @@ endfunction
 " デフォルトだと、最近使ったファイルの先頭は数字なので、使用するアルファベットを指定
 let g:startify_custom_indices = ['f', 'g', 'h', 'r', 'i', 'o', 'b']
 
+" END_vim-startify
+
 " メモプラグイン memolist.vim settings
 let g:memolist_path = "~/Dropbox/vim/memolist"
 let g:memolist_template_dir_path = "~/.vim/template/memolist"
 
-" Vimで和英、英和翻訳 http://qiita.com/ass_out/items/e26760a9ee1b427dfd9d
-function! s:DictionaryTranslate(...)
-    let l:word = a:0 == 0 ? expand('<cword>') : a:1
-    call histadd('cmd', 'DictionaryTranslate '  . l:word)
-    if l:word ==# '' | return | endif
-    let l:gene_path = '~/.vim/dict/gene.txt'
-    let l:jpn_to_eng = l:word !~? '^[a-z_]\+$'
-    let l:output_option = l:jpn_to_eng ? '-B 1' : '-A 1' " 和英 or 英和
-
-    silent pedit Translate\ Result | wincmd P | %delete " 前の結果が残っていることがあるため
-    setlocal buftype=nofile noswapfile modifiable
-    silent execute 'read !grep -ihw' l:output_option l:word l:gene_path
-    silent 0delete
-    let l:esc = @z
-    let @z = ''
-    while search("^" . l:word . "$", "Wc") > 0 " 完全一致したものを上部に移動
-        silent execute line('.') - l:jpn_to_eng . "delete Z 2"
-    endwhile
-    silent 0put z
-    let @z = l:esc
-    silent call append(line('.'), '==')
-    silent 1delete
-    silent wincmd p
-endfunction
-command! -nargs=? -complete=command DictionaryTranslate call <SID>DictionaryTranslate(<f-args>)
-
-" vimコマンド出力をクリップボードへコピー(コピーしたいコマンドを引数に与える) http://d.hatena.ne.jp/hide04/20111223/1324621495
-func! s:func_copy_cmd_output(cmd)
-    redir @*>
-    silent execute a:cmd
-    redir END
-endfunc
-
-command! -nargs=1 -complete=command CopyCmdOutput call <SID>func_copy_cmd_output(<q-args>)
-
 "Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
 au BufRead,BufNewFile *.md set filetype=markdown
 let g:previm_open_cmd = 'open -a Firefox'
+
+" isdirectory
+if isdirectory(expand($HOME.'/Dropbox//vim/snippets'))
+    let g:neosnippet#snippets_directory=$HOME.'/Dropbox/vim/snippets'
+
+    " スニペットプラグイン設定
+    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k>     <Plug>(neosnippet_expand_target)
+endif
 "---------------------------------------------------------------------------
 " 簡易スニペットneocomplcache*キー+Tabでシンプルに出力させるため (Memo:Ctrl+V, Ctrl+Mで改行コード を出力できる
 "---------------------------------------------------------------------------
 " TODO 拡張子ごとに変えられないか 参考http://d.hatena.ne.jp/osyo-manga/20111025/1319546057
-inoremap v<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO2<C-c>
-inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/Applications/MAMP/logs/debug.log'); //TODO'); //TODO2<C-c>
-inoremap fe<TAB> foreach ($arr as $value)
-\{ }<C-c>
-inoremap fu<TAB> function test() { }<C-c>
+" inoremap v<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO2<C-c>
+" inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/Applications/MAMP/logs/debug.log'); //TODO'); //TODO2<C-c>
+" inoremap fe<TAB> foreach ($arr as $value)
+" \{ }<C-c>
+" inoremap fu<TAB> function test() { }<C-c>
 
-" TODO Class if for ifel  array | js click css
+"---------------------------------------------------------------------------
+" ステータスライン
+"---------------------------------------------------------------------------
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightLineFugitive',
+      \   'readonly': 'LightLineReadonly',
+      \   'modified': 'LightLineModified',
+      \   'filename': 'LightLineFilename'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "⭤"
+else
+    return ""
+  endif
+endfunction
+
+function! LightLineFugitive()
+vim-css3-syntax  return exists('*fugitive#head') ? fugitive#head() : ''
+endfunction
+
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" ステータスラインを常に表示（編集中のファイル名が常に確認できるようになる）
+let g:airline_powerline_fonts = 1
+let g:airline_theme='base16'
 
 " http://auewe.hatenablog.com/entry/2013/05/14/003610
 if filereadable(expand($HOME.'/Dropbox//vim/vimrc_local'))
   source $HOME/Dropbox//vim/vimrc_local
 endif
 
+" vimAnzu
+" nmap n <Plug>(anzu-n-with-echo)
+" nmap N <Plug>(anzu-N-with-echo)
+nmap n <Plug>(anzu-mode-n)
+nmap N <Plug>(anzu-mode-N)
+nmap * <Plug>(anzu-star-with-echo)
+nmap # <Plug>(anzu-sharp-with-echo)
+" clear status
+" nmap <Esc><Esc> <Plug>(anzu-clear-search-status)
+" statusline
+set statusline=%{anzu#search_status()}mode-N)
+
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+
+let g:rbpt_max = 16
+
+" -----------END---------
+echo 'load .vimrc'

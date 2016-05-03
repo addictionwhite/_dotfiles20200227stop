@@ -23,13 +23,14 @@ set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp
 " 表示設定
 "---------------------------------------------------------------------------
 "" 半透明
-set transparency=5
+" set transparenclisty=5
 " 縦幅 デフォルト24
 set lines=9999
 " 横幅 デフォルト80
 set columns=9999
 
-set guifont=Ricty_Diminished:h13 " フォント
+" set guifont=Ricty_Diminished:h13 " フォント
+set guifont=Hack:h12 " フォント
 set number            " 行番号を表示
 set relativenumber    " 相対行表示
 set showmatch         " 対応する括弧を強調表示
@@ -49,16 +50,16 @@ set guioptions-=L
 set guioptions-=b
 
 set list  " 不可視文字を表示する
-set listchars=tab:>-,trail:.  " タブを >--- 半スペを . で表示する
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+
 " 長いテキストで重くなる現象を回避
 set synmaxcol=200
-" ステータスラインを常に表示（編集中のファイル名が常に確認できるようになる）
-set laststatus=2
 
 " ------------------------------------
 " colorscheme
 " ------------------------------------
-colorscheme atom-dark
+ colorscheme atom-dark
+" colorscheme gotham
 
 "-------------------------------------------------------------------------------
 " 編集
@@ -76,6 +77,15 @@ set hidden     " 保存されていないファイルがあるときでも別の
 set autoread   " 外部でファイルに変更がされた場合は読みなおす
 set nobackup   " ファイル保存時にバックアップファイルを作らない
 set noswapfile " ファイル編集中にスワップファイルを作らない
+
+" 各ファイルによってインデントの深さを変える http://qiita.com/mitsuru793/items/2d464f30bd091f5d0fef
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.html setlocal tabstop=2 softtabstop=2 shiftwidth=2
+    autocmd BufNewFile,BufRead *.tpl setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
 
 "-------------------------------------------------------------------------------
 " 検索/置換設定
@@ -95,3 +105,5 @@ set wildmenu wildmode=list:longest,full
 "履歴を10000件保存する
 set history=10000
 
+"esc連打でハイライトをオフ
+nnoremap <silent> <ESC><ESC> :noh<CR>
