@@ -1,17 +1,8 @@
-" Mac OSXデフォルトのvimでのエラー防止
+" OSXデフォルトのvimでのエラー防止
 " http://nanasi.jp/articles/howto/install/vim7_install_to_tiger.html"
 :if ! has("migemo")
     :finish
 :endif
-
-" PHPの文法チェック START 参考 http://kannokanno.hatenablog.com/entry/20120716/1342428418  {{{1
-augroup PHP
-autocmd!
-autocmd FileType php set makeprg=php\ -l\ %
-" php -lの構文チェックでエラーがなければ「No syntax errors」の一行だけ出力される
-autocmd BufWritePost *.php silent make | if len(getqflist()) != 1 | copen | else | cclose | endif
-augroup END
-"PHPの文法チェック END
 
 " :vimgrepに加えて:grep、:Ggrepでも自動的にquickfix-windowを開く
 autocmd QuickFixCmdPost *grep* cwindow
@@ -29,6 +20,8 @@ Plug 'tpope/vim-surround'
 Plug 'Shougo/neocomplete.vim'
 Plug 'h1mesuke/unite-outline'
 Plug 'gosukiwi/vim-atom-dark'
+Plug 'andreasvc/vim-256noir'
+
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/pyte'
 
@@ -85,15 +78,24 @@ Plug 'mattn/gist-vim' | Plug 'mattn/webapi-vim'
 Plug 'shikato/keysender.vim'
 Plug 'shikato/vim2browser.vim'
 Plug 'whatyouhide/vim-gotham'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/copypath.vim'
 Plug 'ternjs/tern_for_vim'
-Plug 'vim-scripts/Align'
+" Plug 'vim-scripts/Align'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'sjl/gundo.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'airblade/vim-rooter'
+
+" 単語検索
+Plug 'ynoca/vim-dejizo-translator.vim'
+" 文法チェック
+Plug 'rhysd/vim-grammarous'
+" 単語補完 TODO:動かない
+Plug 'ujihisa/neco-look'
+" ネーミング辞書
+Plug 'koron/codic-vim'
 
 " TODO 未設定
 Plug 'scrooloose/syntastic'
@@ -139,6 +141,7 @@ call plug#end()
 "---------------------------------------------------------------------------
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
+inoremap <silent> kk <ESC>
 "タブ切り替え
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
@@ -147,6 +150,8 @@ inoremap <D-j> <Down>
 inoremap <D-k> <Up>
 inoremap <D-h> <Left>
 inoremap <D-l> <Right>
+" 検索のハイライト取り消し
+" nohlsearchnnoremap <ESC><ESC> :nohlsearch<CR>
 
 " easyMotion
 nmap s <Plug>(easymotion-s2)
@@ -163,14 +168,14 @@ nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
 nnoremap <silent> <Space>go :OpenBrowserSearch
 
 "/yankround.vim'用キーマップ
-nmap p <Plug>(yankround-p)
-nmap P <Plug>(yankround-P)
-nmap gp <Plug>(yankround-gp)
-nmap gP <Plug>(yankround-gP)
-" nmap <C-i> <Plug>(yankround-prev)
-" nmap <C-n> <Plug>(yankround-next)
-nmap pp <Plug>(yankround-prev)
-nmap pb <Plug>(yankround-next)
+" nmap p <Plug>(yankround-p)
+" nmap P <Plug>(yankround-P)
+" nmap gp <Plug>(yankround-gp)
+" nmap gP <Plug>(yankround-gP)
+" " nmap <C-i> <Plug>(yankround-prev)
+" " nmap <C-n> <Plug>(yankround-next)
+" nmap pp <Plug>(yankround-prev)
+" nmap pb <Plug>(yankround-next)
 
 " メモプラグイン
 nnoremap <Space>mn :MemoNew<CR>
@@ -218,8 +223,12 @@ nnoremap <silent> <Space>ba  :%b<CR>
 nnoremap <silent> <Space>bo  :BufOnly<CR>
 " 自分以外のウィンドウを閉じる
 nnoremap <silent> <Space>on  :only<CR>
+
 " finderで開く
 nnoremap <silent> <Space>of  :! open .<CR><CR>
+
+" json整形
+nnoremap <silent> <Space>jq  ::%!jq '.'<CR>
 
 " 行削除(Dでは無理っぽい）
 nnoremap <D-K> dd
@@ -278,24 +287,24 @@ vnoremap <expr> r* ':s ;\<' . expand('<cword>') . '\>;'
 nnoremap <expr> f* '/' . expand('<cword>')
 vnoremap <expr> f* '/' . expand('<cword>')
 
-" very magigを使うとvim-anzuが効かなくなる？
-" nnoremap /  /\v
-
 " ファイルパス、ファイル名称取得
 nnoremap <silent> <Space>cp  :CopyPath<CR>
 nnoremap <silent> <Space>pf  :CopyFileName<CR>
 
+" 英単語サーチ
+nnoremap <silent> <Space>j  :DejizoTranslateWord<CR>
+
+" very magigを使うとvim-anzuが効かなくなる？
+" nnoremap /  /\v
+
 " ctags設定
-nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+" nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 " tagsジャンプの時に複数ある時は一覧表示
-nnoremap <C-]> g<C-]>
-nnoremap <silent> <Space>tg :TagsGenerate<CR>
+" nnoremap <C-]> g<C-]>
+" nnoremap <silent> <Space>tg :TagsGenerate<CR>
 
 " 保存した際にctags生成 (soramugi/auto-ctags.vim)
-let g:auto_ctags = 1
-
-" ビジュアルモードで囲った箇所をイコール揃え(Alignプラグイン）
-vnoremap <silent> <Space>=   :Align<CR>
+" let g:auto_ctags = 1
 
 "---------------------------------------------------------------------------
 " 各種プラグインの設定
@@ -309,7 +318,7 @@ let NERDTreeShowHidden = 1
     \ 'AcceptSelection("p")': ['<c-i>'],
     \ }
 
-" 再起動しないと反映されない？
+  
 let g:ctrlp_map = '<D-O>'
 " 隠しファイルもctrlp.vimの検索対象
 let g:ctrlp_dotfiles = 1
@@ -373,79 +382,6 @@ if isdirectory(expand($HOME.'/Dropbox//vim/snippets'))
     smap <C-k>     <Plug>(neosnippet_expand_or_jump)
     xmap <C-k>     <Plug>(neosnippet_expand_target)
 endif
-"---------------------------------------------------------------------------
-" 簡易スニペットneocomplcache*キー+Tabでシンプルに出力させるため (Memo:Ctrl+V, Ctrl+Mで改行コード を出力できる
-"---------------------------------------------------------------------------
-" TODO 拡張子ごとに変えられないか 参考http://d.hatena.ne.jp/osyo-manga/20111025/1319546057
-" inoremap v<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO2<C-c>
-" inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/Applications/MAMP/logs/debug.log'); //TODO'); //TODO2<C-c>
-" inoremap fe<TAB> foreach ($arr as $value)
-" \{ }<C-c>
-" inoremap fu<TAB> function test() { }<C-c>
-
-"---------------------------------------------------------------------------
-" ステータスライン
-"---------------------------------------------------------------------------
-let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'filename' ] ]
-      \ },
-      \ 'component_function': {
-      \   'fugitive': 'LightLineFugitive',
-      \   'readonly': 'LightLineReadonly',
-      \   'modified': 'LightLineModified',
-      \   'filename': 'LightLineFilename'
-      \ },
-      \ 'separator': { 'left': '⮀', 'right': '⮂' },
-      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
-      \ }
-
-function! LightLineModified()
-  if &filetype == "help"
-    return ""
-  elseif &modified
-    return "+"
-  elseif &modifiable
-    return ""
-  else
-    return ""
-  endif
-endfunction
-
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "⭤"
-else
-    return ""
-  endif
-endfunction
-
-function! LightLineFugitive()
-vim-css3-syntax  return exists('*fugitive#head') ? fugitive#head() : ''
-endfunction
-
-function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
-       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
-endfunction
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" ステータスラインを常に表示（編集中のファイル名が常に確認できるようになる）
-let g:airline_powerline_fonts = 1
-let g:airline_theme='base16'
-
-" http://auewe.hatenablog.com/entry/2013/05/14/003610
-if filereadable(expand($HOME.'/Dropbox//vim/vimrc_local'))
-  source $HOME/Dropbox//vim/vimrc_local
-endif
 
 " vimAnzu
 " nmap n <Plug>(anzu-n-with-echo)
@@ -459,26 +395,28 @@ nmap # <Plug>(anzu-sharp-with-echo)
 " statusline
 set statusline=%{anzu#search_status()}mode-N)
 
-let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+if !exists('g:neocomplete#text_mode_filetypes')
+    let g:neocomplete#text_mode_filetypes = {}
+endif
+let g:neocomplete#text_mode_filetypes = {
+            \ 'rst': 1,
+            \ 'markdown': 1,
+            \ 'gitrebase': 1,
+            \ 'gitcommit': 1,
+            \ 'vcs-commit': 1,
+            \ 'hybrid': 1,
+            \ 'text': 1,
+            \ 'help': 1,
+            \ 'tex': 1,
+            \ }
 
-let g:rbpt_max = 16
+" http://auewe.hatenablog.com/entry/2013/05/14/003610
+if filereadable(expand($HOME.'/Dropbox//vim/vimrc_local'))
+  source $HOME/Dropbox//vim/vimrc_local
+endif
 
+" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
+set laststatus=0
 " -----------END---------
 echo 'load .vimrc'
+
