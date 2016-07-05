@@ -21,10 +21,14 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'h1mesuke/unite-outline'
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'andreasvc/vim-256noir'
+Plug 'sickill/vim-monokai'
+" TODO
+Plug 'vim-scripts/TaskList.vim'
+" Plug 'rhysd/clever-f.vim'
 
+Plug 'keith/swift.vim'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/pyte'
-
 Plug 'simeji/winresizer'
 Plug 'thinca/vim-quickrun'
 " レジスタ履歴を利用したヤンク
@@ -39,7 +43,6 @@ Plug 'cohama/agit.vim'
 Plug 'jreybert/vimagit'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'jelera/vim-javascript-syntax'
-Plug 'open-browser.vim'
 Plug 'mbbill/undotree'
 " Plug 'Shougo/vimproc.vim', {
 " \ 'build' : {
@@ -67,7 +70,6 @@ Plug 'glidenote/memolist.vim'
 Plug 'Shougo/vimfiler' | Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'tyru/caw.vim'
-Plug 'open-browser.vim'
 Plug 'vim-scripts/mru.vim'
 Plug 'sudo.vim'
 " Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
@@ -84,7 +86,7 @@ Plug 'vim-scripts/copypath.vim'
 Plug 'ternjs/tern_for_vim'
 " Plug 'vim-scripts/Align'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'sjl/gundo.vim'
+" Plug 'sjl/gundo.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'airblade/vim-rooter'
 
@@ -92,9 +94,9 @@ Plug 'airblade/vim-rooter'
 Plug 'ynoca/vim-dejizo-translator.vim'
 " 文法チェック
 Plug 'rhysd/vim-grammarous'
-" 単語補完 TODO:動かない
+" 単語補完
 Plug 'ujihisa/neco-look'
-" ネーミング辞書
+
 Plug 'koron/codic-vim'
 
 " TODO 未設定
@@ -102,6 +104,7 @@ Plug 'scrooloose/syntastic'
 " TODO 使い方
 Plug 'deris/vim-rengbang'
 Plug 'junegunn/vim-github-dashboard'
+Plug 'omnisharp/omnisharp-vim'
 
 " Plug 'vim-airline/vim-airline'
 " Plug 'vim-airline/vim-airline-themes'
@@ -150,13 +153,14 @@ inoremap <D-j> <Down>
 inoremap <D-k> <Up>
 inoremap <D-h> <Left>
 inoremap <D-l> <Right>
-" 検索のハイライト取り消し
-" nohlsearchnnoremap <ESC><ESC> :nohlsearch<CR>
 
 " easyMotion
 nmap s <Plug>(easymotion-s2)
+nmap w <Plug>(easymotion-w)
+nmap e <Plug>(easymotion-e)
+
 " Emmet
-nmap <silent> <Space>em  :Emmet 
+nmap <silent> <Space>em  :Emmet
 " MorkDown Prevew
 nmap <silent> <Space>mk  :PrevimOpen
 " VimFiler
@@ -165,7 +169,7 @@ inoremap <D-I> <ESC>:VimFilerBufferDir<CR>
 "履歴一覧(kien/ctrlp.vim)
 nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
 " Web検索
-nnoremap <silent> <Space>go :OpenBrowserSearch
+" nnoremap <silent> <Space>go :OpenBrowserSearch
 
 "/yankround.vim'用キーマップ
 " nmap p <Plug>(yankround-p)
@@ -210,23 +214,19 @@ nmap <Space>bc <Plug>BookmarkClearAll
 nnoremap <A-F1> :NERDTreeFind<CR>
 nnoremap <D-1> :NERDTreeClose<CR>
 
-" バッファ(タブ)移動
-nnoremap <C-l> :bn<CR>
-nnoremap <C-h> :bp<CR>
 " バッファ削除
-nnoremap <C-w>b  :bd<CR>
-" バッファを閉じる
-nnoremap <silent> <Space>bc  :bd<CR>
-" すべてのバッファを閉じる（Vimは閉じない）
-nnoremap <silent> <Space>ba  :%b<CR>
+nnoremap <C-w>bc  :bd<CR>
+すべてのバッファを閉じる（Vimは閉じない）
+" nnoremap <silent> <Space>q  :%b<CR>
 " 自分以外のバッファを閉じる
 nnoremap <silent> <Space>bo  :BufOnly<CR>
 " 自分以外のウィンドウを閉じる
 nnoremap <silent> <Space>on  :only<CR>
-
 " finderで開く
-nnoremap <silent> <Space>of  :! open .<CR><CR>
-
+nnoremap <silent> <Space>op  :! open .<CR><CR>
+" 開いているファイルのリネーム(" :Rename! で強制変更) http://d.hatena.ne.jp/fuenor/20100115/1263551230
+command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
+nnoremap <silent> <Space>rn  :Rename 
 " json整形
 nnoremap <silent> <Space>jq  ::%!jq '.'<CR>
 
@@ -234,7 +234,6 @@ nnoremap <silent> <Space>jq  ::%!jq '.'<CR>
 nnoremap <D-K> dd
 inoremap <D-K> <ESC>ddi
 vnoremap <D-K> dd
-
 " コメントアウト
 nmap <D-/> <Plug>(caw:i:toggle)
 vmap <D-/> <Plug>(caw:i:toggle)
@@ -246,20 +245,21 @@ nnoremap <silent> <Space>pu  :PlugUpdate<CR>
 nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
 nnoremap <silent> <Space>el  :<C-u>edit ~/Dropbox/vim/vimrc_local<CR>
-
-nnoremap <silent> <Space>cl  :<C-u>view ~/Dropbox/vim/command_list<CR>
-nnoremap <silent> <Space>sl  :<C-u>view ~/Dropbox/vim/setting_list<CR>
-
 " 設定再読み込み
 nnoremap <silent> <Space>sv  :source ~/.vimrc<CR>
 nnoremap <silent> <Space>sg  :source ~/.gvimrc<CR>
 
-" 余っているキーマップ
-" TODO com+Nのキーマップ
-" TODO fNのキーマップ
+nnoremap <silent> <Space>cl  :<C-u>view ~/Dropbox/vim/command_list<CR>
+nnoremap <silent> <Space>sl  :<C-u>view ~/Dropbox/vim/setting_list<CR>
 
-" vimコマンド出力をクリップボードへコピー(コピーしたいコマンドを引数に与える) http://d.hatena.ne.jp/hide04/20111223/1324621495
-" nnoremap <F1> :CopyCmdOutput
+" nnoremap <D-2> :GundoToggle<CR>
+" nnoremap <D-3> :<C-u>setlocal relativenumber!<CR>
+noremap  <D-2>  :call BufferList()<CR>
+noremap  <D-3>  <Plug>BookmarkShowAll
+
+" 開いているswiftファイルを
+nnoremap <silent> <Space>sw  :! swift  %<CR>
+
 nnoremap <F1> :Startify<CR>
 " nmap <F2> <Plug>BookmarkNext 設定済み
 " 最近開いたファイルを開く
@@ -274,9 +274,10 @@ nnoremap <F3> :MRU<CR>
  "---------------検索,置換---------------
  " Ag(Grep)
  nnoremap <silent> <Space>g   :Ag
+ " nmap <C-n>  :cn<CR>
+ " nmap <C-p>  :cp<CR>
  nmap <C-n>  :cn<CR>
  nmap <C-p>  :cp<CR>
-
  " カーソル配下の単語でAg
 nnoremap <expr> g* ':Ag ' . expand('<cword>')
 vnoremap <expr> g* ':Ag ' . expand('<cword>')
@@ -318,7 +319,7 @@ let NERDTreeShowHidden = 1
     \ 'AcceptSelection("p")': ['<c-i>'],
     \ }
 
-  
+" 再起動しないと反映されない？
 let g:ctrlp_map = '<D-O>'
 " 隠しファイルもctrlp.vimの検索対象
 let g:ctrlp_dotfiles = 1
@@ -417,6 +418,46 @@ endif
 
 " ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
 set laststatus=0
+
+
+" neocomplcache START http://vim-jp.org/vim-users-jp/2010/10/17/Hack-177.html
+    " Disable AutoComplPop.
+    let g:acp_enableAtStartup = 0
+    " Use neocomplcache.
+    let g:neocomplcache_enable_at_startup = 1
+    " Use smartcase.
+    let g:neocomplcache_enable_smart_case = 1
+    " Use camel case completion.
+    let g:neocomplcache_enable_camel_case_completion = 1
+    " Use underbar completion.
+    let g:neocomplcache_enable_underbar_completion = 1
+    " Set minimum syntax keyword length.
+    let g:neocomplcache_min_syntax_length = 3
+    let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+
+    " Define dictionary.
+    " let g:neocomplcache_dictionary_filetype_lists = {
+    "     \ 'default' : '',
+    "     \ 'vimshell' : $HOME.'/.vimshell_hist',
+    "     \ 'scheme' : $HOME.'/.gosh_completions'
+    "         \ }
+
+    " Define keyword.
+    " if !exists('g:neocomplcache_keyword_patterns')
+    "     let g:neocomplcache_keyword_patterns = {}
+    " endif
+    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+" neocomplete END 
+
+
+" 自動改行オフ http://kaworu.jpn.org/kaworu/2007-07-29-1.php
+set tw=0
+
+" let g:brightest#enable_highlight_all_window = 1
+" CursorHold 時にハイライトさせる
+" let g:brightest#enable_on_CursorHold = 1
+
+
 " -----------END---------
 echo 'load .vimrc'
 

@@ -58,8 +58,9 @@ set synmaxcol=200
 " ------------------------------------
 " colorscheme
 " ------------------------------------
- colorscheme 256_noir
+" colorscheme 256_noir
 " colorscheme gotham
+ colorscheme monokai 
 
 "-------------------------------------------------------------------------------
 " 編集
@@ -107,3 +108,4 @@ set history=10000
 
 "esc連打でハイライトをオフ
 nnoremap <silent> <ESC><ESC> :noh<CR>
+
