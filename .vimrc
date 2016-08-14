@@ -16,15 +16,19 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'gregsexton/MatchTag'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-" 補完 START 参考 http://kaworu.jpn.org/vim/vim%E3%81%AEPHP%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83#neocomplete-php {{{2
+" 補完 START 参考 http://kaworu.jpn.org/vim/vim%E3%81%AEPHP%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83#neocomplete-php 
 Plug 'Shougo/neocomplete.vim'
 Plug 'h1mesuke/unite-outline'
 Plug 'gosukiwi/vim-atom-dark'
 Plug 'andreasvc/vim-256noir'
 Plug 'sickill/vim-monokai'
+Plug 'jnurmine/Zenburn'
+Plug 'maciakl/vim-neatstatus'
 " TODO
-Plug 'vim-scripts/TaskList.vim'
+" Plug 'vim-scripts/TaskList.vim'
 " Plug 'rhysd/clever-f.vim'
+Plug 'dkprice/vim-easygrep'
+" Plug 'kien/ctrlp.vim'
 
 Plug 'keith/swift.vim'
 Plug 'vim-scripts/BufOnly.vim'
@@ -67,11 +71,16 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'violetyk/neocomplete-php.vim'
 Plug 'mhinz/vim-startify'
 Plug 'glidenote/memolist.vim'
-Plug 'Shougo/vimfiler' | Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler' 
+Plug 'Shougo/unite.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'Shougo/neoyank.vim'
+Plug 'joshdick/onedark.vim'
+Plug 'vim-scripts/spinner.vim'
+1lug 'troydm/easybuffer.vim'
 Plug 'tyru/caw.vim'
 Plug 'vim-scripts/mru.vim'
-Plug 'sudo.vim'
+" Plug 'sudo.vim'
 " Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
 Plug 'plasticboy/vim-markdown' | Plug 'kannokanno/previm' | Plug 'tyru/open-browser.vim'
 "  Plug 'maciakl/vim-neatstatus'
@@ -91,13 +100,13 @@ Plug 'osyo-manga/vim-anzu'
 Plug 'airblade/vim-rooter'
 
 " 単語検索
-Plug 'ynoca/vim-dejizo-translator.vim'
+" Plug 'ynoca/vim-dejizo-translator.vim'
 " 文法チェック
-Plug 'rhysd/vim-grammarous'
+" Plug 'rhysd/vim-grammarous'
 " 単語補完
 Plug 'ujihisa/neco-look'
-
 Plug 'koron/codic-vim'
+Plug 'ap/vim-buftabline'
 
 " TODO 未設定
 Plug 'scrooloose/syntastic'
@@ -145,9 +154,6 @@ call plug#end()
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
 inoremap <silent> kk <ESC>
-"タブ切り替え
-nnoremap <C-Tab>   gt
-nnoremap <C-S-Tab> gT
 " 挿入モードでのカーソル移動
 inoremap <D-j> <Down>
 inoremap <D-k> <Up>
@@ -156,18 +162,77 @@ inoremap <D-l> <Right>
 
 " easyMotion
 nmap s <Plug>(easymotion-s2)
-nmap w <Plug>(easymotion-w)
-nmap e <Plug>(easymotion-e)
+" nmap w <Plug>(easymotion-w)
+" nmap e <Plug>(easymotion-e)
+" JK motions: Line motions
+" map j <Plug>(easymotion-j)
+" map k <Plug>(easymotion-k)
+" Move to line
+let g:EasyMotion_startofline=0
+" map <silent>jk <Plug>(easymotion-bd-jk)
+" nmap <silent>jK <Plug>(easymotion-overwin-line)
+" Move to line
+map <silent>;; <Plug>(easymotion-bd-jk)
+nmap <silent>;; <Plug>(easymotion-overwin-line)
+
+" 行ブックマーク Plug 'MattesGroeger/vim-bookmarks'
+nmap <D-F2> <Plug>BookmarkToggle
+nmap <silent> <Space>bl  <Plug>BookmarkShowAll
+nmap <F2> <Plug>BookmarkNext
+nmap <S-F2> <Plug>BookmarkPrev
+nmap <Space>bc <Plug>BookmarkClearAll
+
+" タブ切り替え
+nnoremap <C-Tab> :bnext<CR>
+nnoremap <C-S-Tab> :bprev<CR>
+" タブ作成削除 
+nmap <C-w>n :enew<CR>
+nmap <C-w>c :bd<CR>
+" タブ一覧
+nnoremap <Space>eb :EasyBuffer<CR>
+" すべてのバッファを閉じる（Vimは閉じない）
+" nnoremap <silent> <Space>q  :%b<CR>
+" 自分以外のバッファを閉じる
+nnoremap <silent> <Space>bo  :BufOnly<CR>
+" 自分以外のウィンドウを閉じる
+nnoremap <silent> <Space>on  :only<CR>
+
+" 最近開いたファイル一覧
+nmap <silent> <Space>mr  :MRU<CR>
+" VimFiler
+nmap <D-I> :VimFilerBufferDir<CR>
+inoremap <D-I> <ESC>:VimFilerBufferDir<CR>
+" NERDTree
+nnoremap <A-F1> :NERDTreeFind<CR>
+nnoremap <D-1> :NERDTreeClose<CR>
+nnoremap <Space>ne :NERDTree<CR>
+nnoremap <Space>nf :NERDTreeFind<CR>
+nnoremap <Space>nc :NERDTreeClose<CR>
+
+" ファイルパス、ファイル名称取得
+nnoremap <silent> <Space>cp  :CopyPath<CR>
+nnoremap <silent> <Space>cf  :CopyFileName<CR>
+nnoremap <silent> <Space>cc  :CdCurrent<CR>
+" finderで開く
+nnoremap <silent> <Space>op  :! open .<CR><CR>
+" 開いているファイルのリネーム(" :Rename! で強制変更) http://d.hatena.ne.jp/fuenor/20100115/1263551230
+command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
+nnoremap <silent> <Space>rn  :Rename 
+
+" メモプラグイン
+nnoremap <Space>mn :MemoNew<CR>
+nnoremap <Space>ml :MemoList<CR>
+nnoremap <Space>mg :MemoGrep<CR>
 
 " Emmet
 nmap <silent> <Space>em  :Emmet
 " MorkDown Prevew
 nmap <silent> <Space>mk  :PrevimOpen
-" VimFiler
-nmap <D-I> :VimFilerBufferDir<CR>
-inoremap <D-I> <ESC>:VimFilerBufferDir<CR>
+" json整形
+nnoremap <silent> <Space>jq  ::%!jq '.'<CR>
+
 "履歴一覧(kien/ctrlp.vim)
-nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
+" nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
 " Web検索
 " nnoremap <silent> <Space>go :OpenBrowserSearch
 
@@ -180,11 +245,6 @@ nnoremap <silent>pl :<C-u>CtrlPYankRound<CR>
 " " nmap <C-n> <Plug>(yankround-next)
 " nmap pp <Plug>(yankround-prev)
 " nmap pb <Plug>(yankround-next)
-
-" メモプラグイン
-nnoremap <Space>mn :MemoNew<CR>
-nnoremap <Space>ml :MemoList<CR>
-nnoremap <Space>mg :MemoGrep<CR>
 
 "---------------Git START---------------
 nnoremap <silent> <Space>gl :GitiLog<CR>
@@ -202,33 +262,6 @@ nmap <C-j> <Plug>(signify-next-hunk)zz
 " 前の差分箇所に移動
 nmap <C-k> <Plug>(signify-prev-hunk)zz
 "---------------Git END---------------
-
-" 行ブックマーク Plug 'MattesGroeger/vim-bookmarks'
-nmap <D-F2> <Plug>BookmarkToggle
-nmap <silent> <Space>bl  <Plug>BookmarkShowAll
-nmap <F2> <Plug>BookmarkNext
-" nmap <S-F2> <Plug>BookmarkPrev
-nmap <Space>bc <Plug>BookmarkClearAll
-
-" NERDTree
-nnoremap <A-F1> :NERDTreeFind<CR>
-nnoremap <D-1> :NERDTreeClose<CR>
-
-" バッファ削除
-nnoremap <C-w>bc  :bd<CR>
-すべてのバッファを閉じる（Vimは閉じない）
-" nnoremap <silent> <Space>q  :%b<CR>
-" 自分以外のバッファを閉じる
-nnoremap <silent> <Space>bo  :BufOnly<CR>
-" 自分以外のウィンドウを閉じる
-nnoremap <silent> <Space>on  :only<CR>
-" finderで開く
-nnoremap <silent> <Space>op  :! open .<CR><CR>
-" 開いているファイルのリネーム(" :Rename! で強制変更) http://d.hatena.ne.jp/fuenor/20100115/1263551230
-command! -nargs=+ -bang -complete=file Rename let pbnr=fnamemodify(bufname('%'), ':p')|exec 'f '.escape(<q-args>, ' ')|w<bang>|call delete(pbnr)
-nnoremap <silent> <Space>rn  :Rename 
-" json整形
-nnoremap <silent> <Space>jq  ::%!jq '.'<CR>
 
 " 行削除(Dでは無理っぽい）
 nnoremap <D-K> dd
@@ -258,12 +291,12 @@ noremap  <D-2>  :call BufferList()<CR>
 noremap  <D-3>  <Plug>BookmarkShowAll
 
 " 開いているswiftファイルを
-nnoremap <silent> <Space>sw  :! swift  %<CR>
+" nnoremap <silent> <Space>sw  :! swift  %<CR>
 
 nnoremap <F1> :Startify<CR>
 " nmap <F2> <Plug>BookmarkNext 設定済み
 " 最近開いたファイルを開く
-nnoremap <F3> :MRU<CR>
+" nnoremap <F3> :MRU<CR>
 
 " TODO GHDashboard
 " TODO Gist系
@@ -272,40 +305,37 @@ nnoremap <F3> :MRU<CR>
 " :Gist -d " バッファを開いてコマンドを叩く
 
  "---------------検索,置換---------------
+ " easyGrep 
+ nnoremap <D-r> :Replace 
+ nnoremap <D-F> :Grep 
  " Ag(Grep)
- nnoremap <silent> <Space>g   :Ag
+ " nnoremap <silent> <Space>g   :Ag
+ " nmap <C-n>  :cn<CR><D-/>
  " nmap <C-n>  :cn<CR>
  " nmap <C-p>  :cp<CR>
- nmap <C-n>  :cn<CR>
- nmap <C-p>  :cp<CR>
  " カーソル配下の単語でAg
-nnoremap <expr> g* ':Ag ' . expand('<cword>')
-vnoremap <expr> g* ':Ag ' . expand('<cword>')
-" カーソル配下の単語で置換(memo:gcで確認しながら繰り返し置換
-nnoremap <expr> r* ':%s ;\<' . expand('<cword>') . '\>;'
-vnoremap <expr> r* ':s ;\<' . expand('<cword>') . '\>;'
-" カーソル配下の単語検索
-nnoremap <expr> f* '/' . expand('<cword>')
-vnoremap <expr> f* '/' . expand('<cword>')
+" nnoremap <expr> g* ':Ag ' . expand('<cword>')
+" vnoremap <expr> g* ':Ag ' . expand('<cword>')
+" " カーソル配下の単語で置換(memo:gcで確認しながら繰り返し置換
+" nnoremap <expr> r* ':%s ;\<' . expand('<cword>') . '\>;'
+" nnvnoremap <expr> r* ':s ;\<' . expand('<cword>') . '\>;'
+" " カーソル配下の単語検索
+" nnoremap <expr> f* '/' . expand('<cword>')
+" vnoremap <expr> f* '/' . expand('<cword>')
 
-" ファイルパス、ファイル名称取得
-nnoremap <silent> <Space>cp  :CopyPath<CR>
-nnoremap <silent> <Space>pf  :CopyFileName<CR>
 
 " 英単語サーチ
-nnoremap <silent> <Space>j  :DejizoTranslateWord<CR>
+" nnoremap <silent> <Space>j  :DejizoTranslateWord<CR>
 
 " very magigを使うとvim-anzuが効かなくなる？
 " nnoremap /  /\v
 
 " ctags設定
-" nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
+nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 " tagsジャンプの時に複数ある時は一覧表示
-" nnoremap <C-]> g<C-]>
-" nnoremap <silent> <Space>tg :TagsGenerate<CR>
+nnoremap <C-]> g<C-]>
+nnoremap <silent> <Space>tg :TagsGenerate<CR>
 
-" 保存した際にctags生成 (soramugi/auto-ctags.vim)
-" let g:auto_ctags = 1
 
 "---------------------------------------------------------------------------
 " 各種プラグインの設定
@@ -323,18 +353,6 @@ let NERDTreeShowHidden = 1
 let g:ctrlp_map = '<D-O>'
 " 隠しファイルもctrlp.vimの検索対象
 let g:ctrlp_dotfiles = 1
-
-if filereadable(expand('~/.vim/plugin/buftabs.vim'))
-    let g:buftabs_only_basename=1
-    " バッファタブをステータスライン内に表示する
-    let g:buftabs_in_statusline=1
-    " 現在のバッファをハイライト
-    let g:buftabs_active_highlight_group="Visual"
-    "let g:buftabs_separator = " "
-    "let g:buftabs_marker_start = ""
-    "let g:buftabs_marker_end = ""
-    let g:buftabs_marker_modified = "+"
-endif
 
 "vimfiler セーフモード OFF (削除やリネームの制限解除)
 let g:vimfiler_safe_mode_by_default = 0
@@ -416,9 +434,6 @@ if filereadable(expand($HOME.'/Dropbox//vim/vimrc_local'))
   source $HOME/Dropbox//vim/vimrc_local
 endif
 
-" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
-set laststatus=0
-
 
 " neocomplcache START http://vim-jp.org/vim-users-jp/2010/10/17/Hack-177.html
     " Disable AutoComplPop.
@@ -453,10 +468,8 @@ set laststatus=0
 " 自動改行オフ http://kaworu.jpn.org/kaworu/2007-07-29-1.php
 set tw=0
 
-" let g:brightest#enable_highlight_all_window = 1
-" CursorHold 時にハイライトさせる
-" let g:brightest#enable_on_CursorHold = 1
-
+" 保存した際にctags生成 (soramugi/auto-ctags.vim)
+let g:auto_ctags = 1
 
 " -----------END---------
 echo 'load .vimrc'
