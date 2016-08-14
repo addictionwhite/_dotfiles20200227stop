@@ -23,7 +23,7 @@ set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp
 " 表示設定
 "---------------------------------------------------------------------------
 "" 半透明
-" set transparenclisty=5
+" set transparency=15 
 " 縦幅 デフォルト24
 set lines=9999
 " 横幅 デフォルト80
@@ -34,7 +34,7 @@ set guifont=Hack:h12 " フォント
 set number            " 行番号を表示
 set relativenumber    " 相対行表示
 set showmatch         " 対応する括弧を強調表示
-syntax on             " シンタックスハイライト
+" syntax on             " シンタックスハイライト
 set cursorline        " カーソル行の背景色を変える
 "set cursorcolumn      " カーソル位置のカラムの背景色を変える
 autocmd InsertEnter,InsertLeave * set cursorline! " 挿入モードの時のみ、カーソル行をハイライトする
@@ -60,7 +60,9 @@ set synmaxcol=200
 " ------------------------------------
 " colorscheme 256_noir
 " colorscheme gotham
- colorscheme monokai 
+ " colorscheme monokai 
+  colorscheme atom-dark-256 
+ " colorscheme Zenburn 
 
 "-------------------------------------------------------------------------------
 " 編集
