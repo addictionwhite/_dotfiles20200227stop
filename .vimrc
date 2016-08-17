@@ -13,7 +13,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'mattn/emmet-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'gregsexton/MatchTag'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 " 補完 START 参考 http://kaworu.jpn.org/vim/vim%E3%81%AEPHP%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83#neocomplete-php 
@@ -80,6 +79,9 @@ Plug 'vim-scripts/spinner.vim'
 1lug 'troydm/easybuffer.vim'
 Plug 'tyru/caw.vim'
 Plug 'vim-scripts/mru.vim'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'Valloric/MatchTagAlways'
+
 " Plug 'sudo.vim'
 " Markdownのプレビュー http://qiita.com/uedatakeshi/items/31761b87ba8ecbaf2c1e
 Plug 'plasticboy/vim-markdown' | Plug 'kannokanno/previm' | Plug 'tyru/open-browser.vim'
@@ -187,7 +189,9 @@ nnoremap <C-Tab> :bnext<CR>
 nnoremap <C-S-Tab> :bprev<CR>
 " タブ作成削除 
 nmap <C-w>n :enew<CR>
-nmap <C-w>c :bd<CR>
+" nmap <C-w>c :bd<CR>
+" ウィンドウを維持してバッファを閉じる Plug 'rbgrouleff/bclose.vim'1
+nmap <C-w>c :Bclose<CR>
 " タブ一覧
 nnoremap <Space>eb :EasyBuffer<CR>
 " すべてのバッファを閉じる（Vimは閉じない）
@@ -393,13 +397,12 @@ au BufRead,BufNewFile *.md set filetype=markdown
 let g:previm_open_cmd = 'open -a Firefox'
 
 " isdirectory
-if isdirectory(expand($HOME.'/Dropbox//vim/snippets'))
+if isdirectory(expand($HOME.'/Dropbox/vim/snippets'))
     let g:neosnippet#snippets_directory=$HOME.'/Dropbox/vim/snippets'
-
     " スニペットプラグイン設定
-    imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    xmap <C-k>     <Plug>(neosnippet_expand_target)
+    imap <D-i>     <Plug>(neosnippet_expand_or_jump)
+    smap <D-i>     <Plug>(neosnippet_expand_or_jump)
+    xmap <D-i>     <Plug>(neosnippet_expand_target)
 endif
 
 " vimAnzu
