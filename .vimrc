@@ -76,7 +76,8 @@ Plug 'Shougo/neomru.vim'
 Plug 'Shougo/neoyank.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'vim-scripts/spinner.vim'
-1lug 'troydm/easybuffer.vim'
+Plug 'troydm/easybuffer.vim'
+Plug 'nono/jquery.vim'
 Plug 'tyru/caw.vim'
 Plug 'vim-scripts/mru.vim'
 Plug 'rbgrouleff/bclose.vim'
@@ -174,8 +175,11 @@ let g:EasyMotion_startofline=0
 " map <silent>jk <Plug>(easymotion-bd-jk)
 " nmap <silent>jK <Plug>(easymotion-overwin-line)
 " Move to line
+map <Space>jk <Plug>(easymotion-bd-jk)
+nmap <Space>jk <Plug>(easymotion-overwin-line)
 map <silent>;; <Plug>(easymotion-bd-jk)
 nmap <silent>;; <Plug>(easymotion-overwin-line)
+
 
 " 行ブックマーク Plug 'MattesGroeger/vim-bookmarks'
 nmap <D-F2> <Plug>BookmarkToggle
