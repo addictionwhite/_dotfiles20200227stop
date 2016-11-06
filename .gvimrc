@@ -14,27 +14,17 @@ set iminsert=2
 "-------------------------------------------------------------------------------
 " エンコーディング設定
 "---------------------------------------------------------------------------
-set encoding=utf-8
-set fileencoding=utf-8  " 基本文字コード
-set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
+" set encoding=utf-8
+" set fileencoding=utf-8  " 基本文字コード
+" set fileencodings=ucs-bom,iso-2022-jp-3,iso-2022-jp,eucjp-ms,euc-jisx0213,euc-jp,sjis,cp932,utf-8
 " set fileencodings=utf-8,cp932 " 文字コード自動判別(優先順)
 
 "-------------------------------------------------------------------------------
 " 表示設定
 "---------------------------------------------------------------------------
-"" 半透明
-" set transparency=15 
-" 縦幅 デフォルト24
-set lines=9999
-" 横幅 デフォルト80
-set columns=9999
-
-" set guifont=Ricty_Diminished:h13 " フォント
-set guifont=Hack:h12 " フォント
 set number            " 行番号を表示
-set relativenumber    " 相対行表示
+" set relativenumber    " 相対行表示
 set showmatch         " 対応する括弧を強調表示
-" syntax on             " シンタックスハイライト
 set cursorline        " カーソル行の背景色を変える
 "set cursorcolumn      " カーソル位置のカラムの背景色を変える
 autocmd InsertEnter,InsertLeave * set cursorline! " 挿入モードの時のみ、カーソル行をハイライトする
@@ -49,8 +39,22 @@ set guioptions-=L
 " 水平スクロールバーを非表示にする
 set guioptions-=b
 
+" 画面最大
+au GUIEnter * simalt ~x
+
+
+" メニュー非表示
+" set guioptions-=m
+" set guioptions-=T
+" set guioptions-=r
+" set guioptions-=R
+" set guioptions-=l
+" set guioptions-=L
+" set guioptions-=b
+"
+ set guifont=Ricty_Diminished:h13 " フォント
 set list  " 不可視文字を表示する
-set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%,eol:↲
+" set listchars=tab:≫-,trail:-,extends:≫,precedes:≪,nbsp:%,eol:?
 
 " 長いテキストで重くなる現象を回避
 set synmaxcol=200
@@ -60,9 +64,13 @@ set synmaxcol=200
 " ------------------------------------
 " colorscheme 256_noir
 " colorscheme gotham
- " colorscheme monokai 
-  colorscheme atom-dark-256 
+"   colorscheme monokai 
+   colorscheme atom-dark-256 
  " colorscheme Zenburn 
+ "
+" colorscheme twilight
+"
+" colorscheme gotham
 
 "-------------------------------------------------------------------------------
 " 編集
@@ -80,6 +88,9 @@ set hidden     " 保存されていないファイルがあるときでも別の
 set autoread   " 外部でファイルに変更がされた場合は読みなおす
 set nobackup   " ファイル保存時にバックアップファイルを作らない
 set noswapfile " ファイル編集中にスワップファイルを作らない
+
+
+set clipboard=unnamed " クリップボード共有
 
 " 各ファイルによってインデントの深さを変える http://qiita.com/mitsuru793/items/2d464f30bd091f5d0fef
 augroup fileTypeIndent
@@ -105,9 +116,8 @@ set gdefault     " 置換の時 g オプションをデフォルトで有効
 "---------------------------------------------------------------------------
 " TABキーによるファイル名補完を有効にする
 set wildmenu wildmode=list:longest,full
-"履歴を10000件保存する
-set history=10000
 
 "esc連打でハイライトをオフ
 nnoremap <silent> <ESC><ESC> :noh<CR>
+
 
