@@ -1,16 +1,16 @@
 " :vimgrepに加えて:grep、:Ggrepでも自動的にquickfix-windowを開く
 autocmd QuickFixCmdPost *grep* cwindow
+autocmd QuickFixCmdPost *ag* cwindow
 
-" :vimgrepに加えて:grep、:Ggrepでも自動的にquickfix-windowを開く
-autocmd QuickFixCmdPost *grep* cwindow
 
 "-------- vim-plug START --------
 call plug#begin('~/.vim/plugged')
 
 
 Plug 'editorconfig/editorconfig-vim'
+" Plug 'fholgado/minibufexpl.vim'
 
-Plug 'vim-scripts/vim-svngutter'
+" Plug 'vim-scripts/vim-svngutter'
 Plug 'vim-scripts/vcscommand.vim'
 
 Plug 'mattn/emmet-vim'
@@ -21,13 +21,11 @@ Plug 'tpope/vim-surround'
 "
 Plug 'Shougo/neocomplete.vim'
 Plug 'gosukiwi/vim-atom-dark'
-Plug 'andreasvc/vim-256noir'
+" Plug 'andreasvc/vim-255noir'
 Plug 'sickill/vim-monokai'
 Plug 'maciakl/vim-neatstatus'
 
-" TODO
-" Plug 'vim-scripts/TaskList.vim'
-Plug 'dkprice/vim-easygrep'
+" Plug 'dkprice/vim-easygrep'
 
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'simeji/winresizer'  " ウィンドウサイズ変更
@@ -63,7 +61,7 @@ Plug 'whatyouhide/vim-gotham'
 Plug 'vim-scripts/copypath.vim'
 Plug 'osyo-manga/vim-anzu'
 Plug 'airblade/vim-rooter'
-
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vexxor/phpdoc.vim'
 Plug 'fuenor/qfixgrep'
 
@@ -164,6 +162,8 @@ nnoremap <silent> <Space>r :%s/b/a/gc
 nnoremap <silent> <Space>gr :vimgrep /hoge/j **/*.txt | cw
 
 
+" nnoremap <silent> <Space>p :CtrlPCurWD<CR>
+
 
 " プレビューを有効にする
 let QFixWin_EnableMode = 3
@@ -173,6 +173,11 @@ nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 " tagsジャンプの時に複数ある時は一覧表示
 nnoremap <C-]> g<C-]>
 nnoremap <silent> <Space>tg :TagsGenerate<CR>
+
+
+
+nnoremap <silent> <Space>nf :NERDTreeFind<CR>
+nnoremap <silent> <Space>nc :NERDTreeClose<CR>
 
 
 " isdirectory
@@ -187,8 +192,6 @@ endif
 "---------------------------------------------------------------------------
 		 +" 簡易スニペット(1行のみ）neocomplcache*キー+Tabでシンプルに出力させるため
  "---------------------------------------------------------------------------
- inoremap v<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO<C-c>
- inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, 'C:\MyLog\debug.log'); //TODO<C-c>
  inoremap fe<TAB> foreach ($arr as $value) {}<C-c>
  inoremap fu<TAB> function test() {}<C-c>
 
@@ -204,5 +207,6 @@ let NERDTreeShowHidden = 1
 " 自動改行オフ http://kaworu.jpn.org/kaworu/2007-07-29-1.php
 set tw=0
 
-
-
+" let g:miniBufExplMapWindowNavVim = 1
+" let g:miniBufExplMapWindowNavArrows = 1
+" let g:miniBufExplMapCTabSwitchBuffs = 1
