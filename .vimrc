@@ -17,7 +17,8 @@ Plug 'rhysd/vim-color-shiny-white'
 Plug 'arcticicestudio/nord-vim'
 Plug 'colepeters/spacemacs-theme.vim'
 Plug 'Reewr/vim-monokai-phoenix'
-
+Plug 'kudabux/vim-srcery-drk'
+Plug 'vim-scripts/twilight'
 
 " 編集
 Plug 'mattn/emmet-vim'
@@ -45,8 +46,7 @@ Plug 'simeji/winresizer'  " ウィンドウサイズ変更
 Plug 'Yggdroot/indentLine'
 Plug 'osyo-manga/vim-brightest' " カーソル配下の単語をハイライト
 Plug 'Shougo/neocomplete.vim' " 補完 START 参考 http://kaworu.jpn.org/vim/vim%E3%81%AEPHP%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83#neocomplete-php 
-
-Plug 'tyru/current-func-info.vim'
+Plug 'tyru/current-func-info.vim' " 表示している関数名表示
 
 "検索置換
 Plug 'thinca/vim-qfreplace' " grep 結果を置換
@@ -63,7 +63,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/mru.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-" Plug 'MattesGroeger/vim-bookmarks'
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'troydm/easybuffer.vim'
 
 " その他
@@ -71,6 +71,8 @@ Plug 'thinca/vim-quickrun'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tyru/restart.vim'
 Plug 'Shougo/unite.vim'
+
+Plug 'joonty/vdebug'
 
 
 "Plug 'aquach/vim-http-client'
@@ -93,6 +95,8 @@ call plug#end()
 "---------------------------------------------------------------------------
 " キー設定
 "---------------------------------------------------------------------------
+" セミコロンでノーマルモードに移行
+nnoremap ; :
 " insertモードから抜ける
 inoremap <silent> jj <ESC>
 inoremap <silent> kk <ESC>
@@ -109,6 +113,8 @@ vnoremap <C-K> dd
 
 " easyMotion
 nmap s <Plug>(easymotion-s2)
+nmap <silent> <Space>j <Plug>(easymotion-j)
+nmap <silent> <Space>k <Plug>(easymotion-k)
 
 " vimGrep 切り替え
 "  カレントバッファを対象にする
@@ -171,6 +177,10 @@ nnoremap <silent> <Space>r :%s/b/a/gc
 nnoremap <silent> <Space>gr :vimgrep /hoge/j **/*.txt | cw
 
 
+" nnoremap <silent> <Space>p :CtrlPCurWD<CR>
+nnoremap <silent> <Space>p  :cd C:\zendTest\trunk\04_Implementation<CR> :CtrlPCurWD<CR>
+nnoremap <silent> <Space>cd  :cd C:\zendTest\trunk\04_Implementation<CR>
+
 " inoremap <C-I> <Esc>:call PhpDocSingle()<CR>i
 " nnoremap <C-I> :call PhpDocSingle()<CR>
 " vnoremap <C-I> :call PhpDocSingle()<CR>
@@ -191,11 +201,11 @@ nnoremap <silent> <Space>gb :Unite giti/branch<CR>
 
 " 行ブックマーク Plug 'MattesGroeger/vim-bookmarks'
 " nmap <D-F2> <Plug>BookmarkToggle
-" nmap <C-F2> <Plug>BookmarkToggle
-" nmap <silent> <Space>bl  <Plug>BookmarkShowAll
-" nmap <F2> <Plug>BookmarkNext
-" nmap <S-F2> <Plug>BookmarkPrev
-" nmap <Space>bc <Plug>BookmarkClearAll
+nmap <C-F2> <Plug>BookmarkToggle
+nmap <silent> <Space>bl  <Plug>BookmarkShowAll
+nmap <F2> <Plug>BookmarkNext
+nmap <S-F2> <Plug>BookmarkPrev
+nmap <Space>bc <Plug>BookmarkClearAll
 
 
 " isdirectory
@@ -211,7 +221,8 @@ endif
 " 簡易スニペット(1行のみ）*キー+Tabでシンプルに出力させるため
 "---------------------------------------------------------------------------
  "inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO<C-c>
- inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/debug.log'); //TODO<C-c>
+ " inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/debug.log'); //TODO<C-c>
+ inoremap l<TAB> Log::debug(); //TODO<C-c>
 " inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, 'C:\tmp\debug.log'); //TODO
 
 "---------------------------------------------------------------------------
@@ -333,5 +344,3 @@ endfunction
 "    :delmarks!	マークの一括削除
 " TODO セッション
 "
-"
-
