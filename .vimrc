@@ -63,7 +63,7 @@ Plug 'Lokaltog/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/mru.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'MattesGroeger/vim-bookmarks'
+" Plug 'MattesGroeger/vim-bookmarks'
 Plug 'troydm/easybuffer.vim'
 
 " その他
@@ -71,8 +71,6 @@ Plug 'thinca/vim-quickrun'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tyru/restart.vim'
 Plug 'Shougo/unite.vim'
-
-Plug 'joonty/vdebug'
 
 
 "Plug 'aquach/vim-http-client'
@@ -201,11 +199,11 @@ nnoremap <silent> <Space>gb :Unite giti/branch<CR>
 
 " 行ブックマーク Plug 'MattesGroeger/vim-bookmarks'
 " nmap <D-F2> <Plug>BookmarkToggle
-nmap <C-F2> <Plug>BookmarkToggle
-nmap <silent> <Space>bl  <Plug>BookmarkShowAll
-nmap <F2> <Plug>BookmarkNext
-nmap <S-F2> <Plug>BookmarkPrev
-nmap <Space>bc <Plug>BookmarkClearAll
+" nmap <C-F2> <Plug>BookmarkToggle
+" nmap <silent> <Space>bl  <Plug>BookmarkShowAll
+" nmap <F2> <Plug>BookmarkNext
+" nmap <S-F2> <Plug>BookmarkPrev
+" nmap <Space>bc <Plug>BookmarkClearAll
 
 
 " isdirectory
