@@ -25,14 +25,17 @@ set ambiwidth=double " □や○文字が崩れる問題を解決
 "-------------------------------------------------------------------------------
 " 表示設定
 "---------------------------------------------------------------------------
-set number            " 行番号を表示
-" set relativenumber    " 相対行表示
+"set number            " 行番号を表示
+"set relativenumber    " 相対行表示
 set showmatch         " 対応する括弧を強調表示
 set cursorline        " カーソル行の背景色を変える
 "set cursorcolumn      " カーソル位置のカラムの背景色を変える
 autocmd InsertEnter,InsertLeave * set cursorline! " 挿入モードの時のみ、カーソル行をハイライトする
 set ruler             " 右下に行・列の番号を表示
 set title             " タイトル表示
+" タブページのラインが常に表示
+set showtabline=2
+
 
 " 左右のスクロールバーを非表示にする
 set guioptions-=r
@@ -43,6 +46,8 @@ set guioptions-=L
 "set guioptions-=b
 " 水平スクロール表示
 set guioptions+=b
+" ツールバー非表示
+set guioptions-=T
 
 " 画面最大
 " au GUIEnter * simalt ~x
@@ -84,7 +89,8 @@ set synmaxcol=200
 "endif
 "set background=dark
 "colorscheme spacemacs-theme
-colorscheme monokai-phoenix
+" colorscheme monokai-phoenix
+colorscheme twilight
 
 "IMEでカーソル色(colorの定義の後に配置する必要あり？j
 "---------------------------------
@@ -146,5 +152,4 @@ nnoremap <silent> <ESC><ESC> :noh<CR>
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ja_jp.utf-8
 source $VIMRUNTIME/menu.vim
-
 
