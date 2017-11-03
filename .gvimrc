@@ -10,11 +10,16 @@ set viminfo=
 
 " インサートモードから抜けると自動的にIMEをオフにする
 set iminsert=2
+" コマンドモードに戻るときにIMEをオフにする
+"set imdisable
+" 挿入モードでバックスペースやCtrl-hを押しても何も反応がない場合の対処法
+"set backspace=indent,eol,start
 "-------------------------------------------------------------------------------
 " エンコーディング設定
 "---------------------------------------------------------------------------
 set encoding=utf-8
-set fileencodings=iso-2022-jp,iso-2022-jp-2,utf-8,euc-jp,sjis
+" set fileencodings=iso-2022-jp,iso-2022-jp-2,utf-8,euc-jp,sjis
+set fileencodings=utf-8,euc-jp,sjis,cp932,iso-2022-jp
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
 set ambiwidth=double " □や○文字が崩れる問題を解決
 
@@ -25,8 +30,8 @@ set ambiwidth=double " □や○文字が崩れる問題を解決
 "-------------------------------------------------------------------------------
 " 表示設定
 "---------------------------------------------------------------------------
-"set number            " 行番号を表示
-"set relativenumber    " 相対行表示
+" set number            " 行番号を表示
+" set relativenumber    " 相対行表示
 set showmatch         " 対応する括弧を強調表示
 set cursorline        " カーソル行の背景色を変える
 "set cursorcolumn      " カーソル位置のカラムの背景色を変える
@@ -63,7 +68,7 @@ set guioptions-=T
 " set guioptions-=b
 "
  "set guifont=Ricty_Diminished:h13 " フォント
- set guifont=Ricty_Diminished:h16 " フォント
+ set guifont=Ricty_Diminished:h14 " フォント
 "set guifont=Ricty_Diminished_for_Powerline:h13
 set list  " 不可視文字を表示する
 " set listchars=tab:≫-,trail:-,extends:≫,precedes:≪,nbsp:%,eol:?
@@ -89,8 +94,9 @@ set synmaxcol=200
 "endif
 "set background=dark
 "colorscheme spacemacs-theme
-" colorscheme monokai-phoenix
-colorscheme twilight
+ colorscheme monokai-phoenix
+" colorscheme twilight
+" colorscheme hydrangea
 
 "IMEでカーソル色(colorの定義の後に配置する必要あり？j
 "---------------------------------
@@ -152,4 +158,5 @@ nnoremap <silent> <ESC><ESC> :noh<CR>
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ja_jp.utf-8
 source $VIMRUNTIME/menu.vim
+
 
