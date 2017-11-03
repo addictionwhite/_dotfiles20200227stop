@@ -19,6 +19,7 @@ Plug 'colepeters/spacemacs-theme.vim'
 Plug 'Reewr/vim-monokai-phoenix'
 Plug 'kudabux/vim-srcery-drk'
 Plug 'vim-scripts/twilight'
+Plug 'yuttie/hydrangea-vim'
 
 " 編集
 Plug 'mattn/emmet-vim'
@@ -47,12 +48,16 @@ Plug 'Yggdroot/indentLine'
 Plug 'osyo-manga/vim-brightest' " カーソル配下の単語をハイライト
 Plug 'Shougo/neocomplete.vim' " 補完 START 参考 http://kaworu.jpn.org/vim/vim%E3%81%AEPHP%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83#neocomplete-php 
 Plug 'tyru/current-func-info.vim' " 表示している関数名表示
+Plug 'haya14busa/incsearch.vim' " 検索中の文字列をハイライト
 
 "検索置換
+Plug 'dyng/ctrlsf.vim' " Grep like sublime text
+Plug 'fuenor/qfixgrep' " QuickFixの拡張 TODO
 Plug 'thinca/vim-qfreplace' " grep 結果を置換
 Plug 'rking/ag.vim'
 Plug 'fuenor/qfixgrep'
 " Plug 'osyo-manga/vim-anzu'
+"
 " バッファ操作
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'rbgrouleff/bclose.vim'
@@ -190,6 +195,17 @@ nnoremap <D-M> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 nnoremap <C-]> g<C-]>
 nnoremap <silent> <Space>tg :TagsGenerate<CR>
 
+" quickfix
+" http://thinca.hatenablog.com/entry/20130708/1373210009
+" preview
+noremap <buffer> p  <CR>zz<C-w>p
+" ヒット数をステータスラインに表記
+setlocal statusline+=\ %L
+" 一番下に行ったら一番上に、一番上に行ったら一番下に移動
+"   *(最初に立ち上がった新規バッファでjkを押すとエラーが出力される
+"noremap <silent> <buffer> <expr> j <SID>jk(v:count1)
+"noremap <silent> <buffer> <expr> k <SID>jk(-v:count1)
+
 
 nnoremap <silent> <Space>nf :NERDTreeFind<CR>
 nnoremap <silent> <Space>nc :NERDTreeClose<CR>
@@ -218,10 +234,12 @@ endif
 "---------------------------------------------------------------------------
 " 簡易スニペット(1行のみ）*キー+Tabでシンプルに出力させるため
 "---------------------------------------------------------------------------
- "inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/mylog/debug.log'); //TODO<C-c>
- " inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/debug.log'); //TODO<C-c>
- inoremap l<TAB> Log::debug(); //TODO<C-c>
-" inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, 'C:\tmp\debug.log'); //TODO
+" CentOS7だとtmpにログ吐き出せない？
+ inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/var/www/html/laravel/storage/logs/debug.log'); //TODO<C-c>
+ "inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/debug.log'); //TODO<C-c>
+ "inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, '/tmp/debug.log'); //TODO<C-c>
+ "inoremap l<TAB> Log::debug(); //TODO<C-c>
+ "inoremap l<TAB> error_log(__CLASS__ . __LINE__ . '行:' . print_r($aaa, true) . "\n", 3, 'C:\tmp\debug.log'); //TODO
 
 "---------------------------------------------------------------------------
 " 各種プラグインの設定
@@ -323,14 +341,128 @@ function! s:GetHighlight(hi)
   return hl
 endfunction
 
-
-
 " set imdisable
+set backspace=indent,eol,start
 
-"command Memo  -----------------------
-"    grep -Rn function  .
+
+"--------------------------------
+"        COMMAND MEMO            
+"--------------------------------
+" ------- vim  -------
+" ■Grep
+" Ag xxx
 "
-" study ---------------------------------
+"     option
+"     -Q 正規表現を無視
+"     -G 検索対象の指定 [ag -G *.css]
+"
+" ■ctags
+" sudo yum install ctags
+" ctags -R
+" ■リロード
+" :e!
+"
+" ------- NERDTree -------
+" ツリー上でmを押してaで追加。名前の最後に/をつければディレクトリになる
+"
+" ------- grep -------
+" git grep -HnI -10 xxxxxx
+" git grep -HnI xxxxxx
+"
+" grep -rn xxxxxx *
+"
+"■Grepしたものを置換
+"grep -rl \"beforeString" ./ | xargs perl -i -pe \"s/beforeString/afterString/g"
+" git grep -l 'testaaa' | xargs sed -i -e 's/testaaa/testbbb/g'
+"■GrepにヒットしたものをVimのタブで一気に開く
+" vi -p `git grep -l \"keword"`   // rgrep, git grepで引っ掛けたファイルをvimのタブで一気に開く
+"
+" ------- find -------
+" find ./ -name \"api.php"
+"
+" ------- Laravel -------
+" php artisan list       コマンド一覧
+" php artisan route:list ルーティング一覧
+" php artisan controller:make ControlerName コントローラ作成
+"
+" php artisan migrate
+" php artisan make:migration whispers
+" 
+" php artisan make:model Profile 
+" php artisan make:provider RepositoriesServiceProvider
+"
+" php artisan make:test UserTest テスト生成
+" ./vendor/bin/phpunit
+" ./vendor/bin/phpunit ExampleText.php
+"
+" composer dump-autoload
+" 
+"
+" ------- Screen -------
+" yum -y install screen
+" screen 新しいセッションを作る。
+" <ctrl> + <a>  S  水平方向に画面分割
+"<ctrl> + <a>  <tab> 分割された方向に画面移動
+"<ctrl> + <a> c      新しい端末を作る(分割された画面にできた、何もない空間に移動して実行
+"
+" ------- Git -------
+" git diff  --staged          //git addした後に変更点を見る
+" git diff brancA..brancB    // ブランチ同士を比較する
+" git diff --stat            //どれくらい変更したかだけを見る
+" git diff --name-only       // 変更点を表示するときに、変更があったファイルのパスだけを表示してくれます。
+"                            //これ単体で使うというよりも、cpなどの外部コマンドとかと組み合わせて変更ファイルに対して一括処理をすることが多い。
+" git diff --color-words     // 単語単位で比較する
+"
+" git branch -a              //ブランチ確認(リモート+ローカル
+" git branch  branchName     //ブランチ作成
+" git checkout branchName    //ブランチ切り替え
+" git branch -b branchName   //ブランチ作成+切り替え
+" git branch -d branchName   //ブランチ削除
+"
+" git add .    //新規作成、変更されたファイルをインデックスにaddする
+" git add -u  //変更のあったファイルをaddする
+" git commit -m \"メッセージ"
+" git commit --amend　-m \"メッセージ"  //直前のコミットのメッセージ修正
+" git push
+" 
+" git merge branchName              //コミットまでされる
+" git merge --no-commit branchName  //コミットせずマージのみ
+"
+" git fetch  //リモートリポジトリから最新情報をローカルリポジトリに持ってくるだけ
+" git merge  // ブランチを取り込む
+" git pull   // fetch+merge
+"
+" git status
+"
+" git stash
+" git stash apply
+" git stash save \"<メッセージ>"
+" git stash apply <stash@{1}>     //指定したstashを戻す
+" git stash list                  //stashしたリストを表示
+" git stash drop <stash@{1}>      // 削除
+"
+" git checkout <filename>     //作業ツリーの変更をリモートの状態に戻したい
+" git reset --hard HEAD       //作業ツリーがわけわからなくなったらHEADの状態に戻したい！
+"
+" ------- Apache -------
+" //Apache の conf ファイルの一覧をコマンドラインで取得
+" httpd -t -D DUMP_CONFIG 2>/dev/null | grep '# In' | awk '{print $4}'
+" //設定ファイルの内容の取得
+" httpd -t -D DUMP_CONFIG 2>/dev/null | grep -v '#'
+"
+" systemctl restart httpd.service 再起動
+" sudo vi /etc/httpd/conf/httpd.conf 
+"
+" ------- MySQL -------
+" mysql -u root -p ログイン
+"
+"
+" 初期導入時、MySQL 5.7ではログファイルにパスワードが吐かれている
+" 以下のコマンドでパスワード確認
+" cat /var/log/mysqld.log | grep 'password is generated'
+"
+"
+" ------- Study -------
 "    vimを瞬時に最強エディタに変えるbコマンド
 "    http://qiita.com/qtamaki/items/4da4ead3f2f9a525591a
 "    下記のコマンドでバッファに飛べる
