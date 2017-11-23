@@ -163,6 +163,12 @@ nmap <silent> <Space>em  :Emmet
 " json整形
 nnoremap <silent> <Space>jq  ::%!jq '.'<CR>
 
+" 画面サイズ変更
+nnoremap <Space>wm : set columns=999<CR>:set lines=999<CR>
+nnoremap <Space>ws : set columns=100<CR>:set lines=30<CR>
+
+nnoremap <Space>sf :CtrlSF 
+
 
 " プラグイン更新
 nnoremap <silent> <Space>pi  :PlugInstall<CR>
@@ -380,6 +386,18 @@ set backspace=indent,eol,start
 " ------- find -------
 " find ./ -name \"api.php"
 "
+
+" MySQL
+" ps -ef | grep mysql
+" service mysqld status
+"  less /var/log/mysqld.log | grep Warning
+
+
+" ------- Fuel -------
+" php oil g controller posts action1 action2 action3
+" php oil g model sample title:varchar[50] body:text user_id:int --no-migration
+
+
 " ------- Laravel -------
 " php artisan list       コマンド一覧
 " php artisan route:list ルーティング一覧
